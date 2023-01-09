@@ -9,6 +9,17 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.18.2"
-  }
+    "express": "^4.18.2",
+    "prompt": "^1.3.0",
+    "prompt-sync": "^4.2.0",
+    "promt": "^0.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Izanarraez/Pucherin.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Izanarraez/Pucherin/issues"
+  },
+  "homepage": "https://github.com/Izanarraez/Pucherin#readme"
 }
