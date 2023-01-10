@@ -301,13 +301,8 @@ Jugadores.jugador1[8] = pintarCasilla(canvases[8],11,1);
 
 do{
 
-  let modo = prompt("Elige entre modo texto o grafico").toLowerCase();
   let jugadores = parseInt(prompt("Cuantos jugadores van a ser: Maximo 5"));
   
-  switch (modo) {
-    case "texto":
-      break;
-    case "grafico":
       if(jugadores >= 1 && jugadores <=5){
         activarJugadores(jugadores);
         do{
@@ -316,8 +311,6 @@ do{
         }while(sl2 == false);
         sl1 = true;
       }
-      break;
-  }
 }while(sl1 == false);
 
 //pintarCasilla(canvases[2], 4, 2); // pinta dos fichas en el 4
