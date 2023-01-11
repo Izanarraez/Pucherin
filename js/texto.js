@@ -3,8 +3,6 @@ const prompt = require("prompt-sync")();
 var puntos = 0;
 var fichas = 0;
 
-var mov = 0;
-
 var jugadores = {
     1: {
         fichas: 0,
@@ -44,7 +42,9 @@ var casillas = {
     9: 0,
     10: 0,
     11: 0
-}
+} 
+
+var dado = {}
 
 //reparto aleatorio
 function dados(){
@@ -154,44 +154,190 @@ function cerrar2(){
     return b = false;
 }
 
-function conceder_puntos(){}
-function rellenar_casillas(daos){
-    
+/*function conceder_puntos(puntos){
+    if(puntos == 2){
+        return 2;
+    }
+    else if(dados == 3){
+       return 3;
+    }
+    else if(dados == 4){
+        return 4;
+    }
+    else if(dados == 5){
+        return 5;
+    }
+    else if(dados == 6){
+        return 6;
+    }
+    else if(dados == 7){
+        return 4;
+    }
+    else if(dados == 8){
+        return 8;
+    }
+    else if(dados == 9){
+        return 9;
+    }
+    else if(dados == 10){
+        return 10;
+    }
+    else if(dados == 11){
+        return 11;
+    }
+    else{
+        return casillas[7];
+    }
+}*/
+
+function rellenar_casillas(dados,jug){
+    if(dados == 2){
+        if(casillas[2] > 0 && casillas[2] <=2){
+            casillas[2]++;
+        }
+        else{
+            jug += 2;
+            casillas[2] = 0;
+        }
+    }
+    else if(dados == 3){
+        if(casillas[3] > 0 && casillas[3] <=3){
+            casillas[3]++;
+        }
+        else{
+            jug += 3;
+            casillas[3] = 0;
+        }
+    }
+    else if(dados == 4){
+        if(casillas[4] > 0 && casillas[4] <=4){
+            casillas[4]++;
+        }
+        else{
+            jug += 4;
+            casillas[4] = 0;
+        }
+    }
+    else if(dados == 5){
+        if(casillas[5] > 0 && casillas[5] <=5){
+            casillas[5]++;
+        }
+        else{
+            jug += 5;
+            casillas[5] = 0;
+        }
+    }
+    else if(dados == 6){
+        if(casillas[6] > 0 && casillas[6] <=6){
+            casillas[6]++;
+        }
+        else{
+            jug += 6;
+            casillas[6] = 0;
+        }
+    }
+    else if(dados == 7){
+        if(casillas[7] > 0 && casillas[7] <=4){
+            casillas[7]++;
+        }
+        else{
+            jug += 4;
+            casillas[7] = 0;
+        }
+    }
+    else if(dados == 8){
+        if(casillas[8] > 0 && casillas[8] <=8){
+            casillas[8]++;
+        }
+        else{
+            jug += 8;
+            casillas[8] = 0;
+        }
+    }
+    else if(dados == 9){
+        if(casillas[9] > 0 && casillas[9] <=9){
+            casillas[9]++;
+        }
+        else{
+            jug += 9;
+            casillas[9] = 0;
+        }
+    }
+    else if(dados == 10){
+        if(casillas[10] > 0 && casillas[10] <=10){
+            casillas[10]++;
+        }
+        else{
+            jug += 10;
+            casillas[10] = 0;
+        }
+    }
+    else if(dados == 11){
+        if(casillas[11] > 0 && casillas[11] <=11){
+            casillas[11]++;
+        }
+        else{
+            jug += 11;
+            casillas[11] = 0;
+        }
+    }
+    else{
+        jug += casillas[7];
+        casillas[7] = 0;
+    }
 }
+function sin_fichas(){}
+
 function jugar(turno){
-    if(turno === 1){
-        console.log("hola");
+    if(turno == 1){
+        rellenar_casillas(dados(),jugadores[1].puntos);
+    }
+    else if(turno == 2){
+        rellenar_casillas(dados(),jugadores[2].puntos);
+    }
+    else if(turno == 3){
+        rellenar_casillas(dados(),jugadores[3].puntos);
+    }
+    else if(turno == 4){
+        rellenar_casillas(dados(),jugadores[4].puntos);
+    }
+    else{
+        rellenar_casillas(dados(),jugadores[5].puntos);
     }
 }
 
 //organizar turnoas de hugadores
+
+var mov = 0;
+var tur = 0;
+
 function caso1(){
         console.log("Turno jugador1");
-        return 1;
+        tur = 1;
   }
   function caso2(empezar){
     if(empezar == 1){
         if(mov == 0){
             console.log("Turno jugador1");
             mov = 1;
-            return 1;
+            tur = 1;
         }
         else{
             console.log("Turno jugador2");
             mov = 0;
-            return 2;
+            tur = 2;
         }
     }
     else{
         if(mov == 0){
             console.log("Turno jugador2");
             mov = 1;
-            return 2;
+            tur = 2;
         }
         else{
             console.log("Turno jugador1");
             mov = 0;
-            return 1;
+            tur = 1;
         }
     }
   }
@@ -200,51 +346,51 @@ function caso1(){
         if(mov == 0){
             console.log("Turno jugador1")
             mov = 1;
-            return 1;
+            tur = 1;
         }
         else if(mov == 1){
             console.log("Turno jugador2")
             mov = 2;
-            return 2;
+            tur = 2;
         }
         else{
             console.log("Turno jugador3")
-            mov = 3;
-            return 3;
+            mov = 0;
+            tur = 3;
         }
     }
     else if(empezar == 2){
         if(mov == 0){
             console.log("Turno jugador2")
             mov = 1;
-            return 2;
+            tur = 2;
         }
         else if(mov == 1){
             console.log("Turno jugador3")
             mov = 2;
-            return 3;
+            tur = 3;
         }
         else{
             console.log("Turno jugador1")
             mov = 0;
-            return 1;
+            tur = 1;
         }
     }
     else{
         if(mov == 0){
             console.log("Turno jugador3")
             mov = 1;
-            return 3;
+            tur = 3;
         }
         else if(mov == 1){
             console.log("Turno jugador2")
             mov = 2;
-            return 2;
+            tur = 2;
         }
         else{
             console.log("Turno jugador1")
             mov = 0;
-            return 1;
+            tur = 1;
         }
     }
   }
@@ -253,88 +399,88 @@ function caso1(){
         if(mov == 0){
             console.log("Turno jugador1")
             mov = 1;
-            return 1;
+            tur = 1;
         }
         else if(mov == 1){
             console.log("Turno jugador2")
             mov = 2;
-            return 2;
+            tur = 2;
         }
         else if(mov == 2){
             console.log("Turno jugador3")
             mov = 3;
-            return 3;
+            tur = 3;
         }
         else{
             console.log("Turno jugador4")
             mov = 0;
-            return 4;
+            tur = 4;
         }
     }
     else if(empezar == 2){
         if(mov == 0){
             console.log("Turno jugador2")
             mov = 1;
-            return 2;
+            tur = 2;
         }
         else if(mov == 1){
             console.log("Turno jugador3")
             mov = 2;
-            return 3;
+            tur = 3;
         }
         else if(mov == 2){
             console.log("Turno jugador4")
             mov = 3;
-            return 4;
+            tur = 4;
         }
         else{
             console.log("Turno jugador1")
             mov = 0;
-            return 1;
+            tur = 1;
         }
     }
     else if(empezar == 3){
         if(mov == 0){
             console.log("Turno jugador3")
             mov = 1;
-            return 3;
+            tur = 3;
         }
         else if(mov == 1){
             console.log("Turno jugador4")
             mov = 2;
-            return 4;
+            tur = 4;
         }
         else if(mov == 2){
             console.log("Turno jugador1")
             mov = 3;
-            return 1;
+            tur = 1;
         }
         else{
             console.log("Turno jugador2")
             mov = 0;
-            return 2;
+            tur = 2;
         }
     }
     else{
         if(mov == 0){
             console.log("Turno jugador4")
             mov = 1;
-            return 4;
+            tur = 4;
         }
         else if(mov == 1){
             console.log("Turno jugador1")
             mov = 2;
-            return 1;
+            tur = 1;
         }
         else if(mov == 2){
             console.log("Turno jugador2")
             mov = 3;
-            return 2;
+            tur = 2;
         }
         else{
             console.log("Turno jugador3")
             mov = 0;
-            return 3;
+            tur = 3;
         }
     }
   }
@@ -343,135 +489,135 @@ function caso1(){
         if(mov == 0){
             console.log("Turno jugador1")
             mov = 1;
-            return 1;
+            tur = 1;
         }
         else if(mov == 1){
             console.log("Turno jugador2")
             mov = 2;
-            return 2;
+            tur = 2;
         }
         else if(mov == 2){
             console.log("Turno jugador3")
             mov = 3;
-            return 3;
+            tur = 3;
         }
         else if(mov == 3){
             console.log("Turno jugador4")
             mov = 4;
-            return 4;
+            tur = 4;
         }
         else{
             console.log("Turno jugador5")
             mov = 0;
-            return 5;
+            tur = 5;
         }
     }
     else if(empezar == 2){
         if(mov == 0){
             console.log("Turno jugador2")
             mov = 1;
-            return 2;
+            tur = 2;
         }
         else if(mov == 1){
             console.log("Turno jugador3")
             mov = 2;
-            return 3;
+            tur = 3;
         }
         else if(mov == 2){
             console.log("Turno jugador4")
             mov = 3;
-            return 4;
+            tur = 4;
         }
         else if(mov == 3){
             console.log("Turno jugador5")
             mov = 4;
-            return 5;
+            tur = 5;
         }
         else{
             console.log("Turno jugador1")
             mov = 0;
-            return 1;
+            tur = 1;
         }
     }
     else if(empezar == 3){
         if(mov == 0){
             console.log("Turno jugador3")
             mov = 1;
-            return 3;
+            tur = 3;
         }
         else if(mov == 1){
             console.log("Turno jugador4")
             mov = 2;
-            return 4;
+            tur = 4;
         }
         else if(mov == 2){
             console.log("Turno jugador5")
             mov = 3;
-            return 5;
+            tur = 5;
         }
         else if(mov == 3){
             console.log("Turno jugador1")
             mov = 4;
-            return 1;
+            tur = 1;
         }
         else{
             console.log("Turno jugador2")
             mov = 0;
-            return 2;
+            tur = 2;
         }
     }
     else if(empezar == 4){
         if(mov == 0){
             console.log("Turno jugador4")
             mov = 1;
-            return 4;
+            tur = 4;
         }
         else if(mov == 1){
             console.log("Turno jugador5")
             mov = 2;
-            return 5;
+            tur = 5;
         }
         else if(mov == 2){
             console.log("Turno jugador1")
             mov = 3;
-            return 1;
+            tur = 1;
         }
         else if(mov == 3){
             console.log("Turno jugador2")
             mov = 4;
-            return 2;
+            tur = 2;
         }
         else{
             console.log("Turno jugador3")
             mov = 0;
-            return 3;
+            tur = 3;
         }
     }
     else{
         if(mov == 0){
             console.log("Turno jugador5")
             mov = 1;
-            return 5;
+            tur = 5;
         }
         else if(mov == 1){
             console.log("Turno jugador1")
             mov = 2;
-            return 1;
+            tur = 1;
         }
         else if(mov == 2){
             console.log("Turno jugador2")
             mov = 3;
-            return 2;
+            tur = 2;
         }
         else if(mov == 3){
             console.log("Turno jugador3")
             mov = 4;
-            return 3;
+            tur = 3;
         }
         else{
             console.log("Turno jugador4")
             mov = 0;
-            return 4;
+            tur = 4;
         }
     }
   }
@@ -494,6 +640,7 @@ function caso1(){
           caso5(empezar);
         break;
     }
+    return tur;
   }
 
 //Motor de juego
@@ -502,16 +649,20 @@ let b = true;
 do{
     let participantes = parseInt(prompt("Ingrea los participantes: "));
     do{
+        const c = empezar(participantes);
         /*console.log(Participantes(participantes));*/
-        //Tablero();
-        //reparto_fichas(participantes,empezar(participantes)); //muestra el numero de fichas
-        //mostrar_numero_jugadores(participantes); //muestra el numero de jugadores
-        let sip = prompt("Pulse enter");
+        Tablero();
+        reparto_fichas(participantes,empezar(participantes)); //muestra el numero de fichas
+        mostrar_numero_jugadores(participantes); //muestra el numero de jugadores
+        //let sip = prompt("Pulse enter");
         //if(sip == ""){
-            //console.log(turno(participantes,empezar()));
             //console.log(Tablero());
-            jugar(turno(participantes,empezar()));
-            //cerrar2();
+            console.log(c);
+            for(let i=0;i<6;i++){
+                jugar(turno(participantes,c));
+                Tablero();
+            }
+            cerrar2();
         //}
     }while(b == true);
     cerrar1();
