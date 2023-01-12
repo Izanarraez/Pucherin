@@ -1,8 +1,5 @@
 const prompt = require("prompt-sync")();
 
-var puntos = 0;
-var fichas = 0;
-
 var jugadores = {
     1: {
         fichas: 0,
@@ -131,7 +128,7 @@ function mostrar_numero_jugadores(participantes){
         console.log(`Jugador ${i}`);
         console.log(`\tFichas: ${jugadores[i].fichas}`);
         console.log(`\tCasillas: ${0}`);
-        console.log(`\tPuntos: ${0 /*conceder_puntos()*/}`); // flata hacer los puntos
+        console.log(`\tPuntos: ${jugadores[i].puntos}`); // flata hacer los puntos
     }
     //console.log("---------------------");
 }
@@ -154,143 +151,110 @@ function cerrar2(){
     return b = false;
 }
 
-/*function conceder_puntos(puntos){
-    if(puntos == 2){
-        return 2;
-    }
-    else if(dados == 3){
-       return 3;
-    }
-    else if(dados == 4){
-        return 4;
-    }
-    else if(dados == 5){
-        return 5;
-    }
-    else if(dados == 6){
-        return 6;
-    }
-    else if(dados == 7){
-        return 4;
-    }
-    else if(dados == 8){
-        return 8;
-    }
-    else if(dados == 9){
-        return 9;
-    }
-    else if(dados == 10){
-        return 10;
-    }
-    else if(dados == 11){
-        return 11;
-    }
-    else{
-        return casillas[7];
-    }
-}*/
-
-function rellenar_casillas(dados,jug){
+function rellenar_casillas(dados){
+    var jug = 0;
     if(dados == 2){
-        if(casillas[2] > 0 && casillas[2] <=2){
-            casillas[2]++;
+        if(casillas[2] >= 0 && casillas[2] <2){
+            ++casillas[2];
         }
         else{
-            jug += 2;
+            jug = 2;
             casillas[2] = 0;
         }
     }
     else if(dados == 3){
-        if(casillas[3] > 0 && casillas[3] <=3){
-            casillas[3]++;
+        if(casillas[3] >= 0 && casillas[3] <3){
+            ++casillas[3];
         }
         else{
-            jug += 3;
+            jug = 3;
             casillas[3] = 0;
         }
     }
     else if(dados == 4){
-        if(casillas[4] > 0 && casillas[4] <=4){
-            casillas[4]++;
+        if(casillas[4] >= 0 && casillas[4] <4){
+            ++casillas[4];
         }
         else{
-            jug += 4;
+            jug = 4;
             casillas[4] = 0;
         }
     }
     else if(dados == 5){
-        if(casillas[5] > 0 && casillas[5] <=5){
-            casillas[5]++;
+        if(casillas[5] >= 0 && casillas[5] <5){
+            ++casillas[5];
         }
         else{
-            jug += 5;
+            jug = 5;
             casillas[5] = 0;
         }
     }
     else if(dados == 6){
-        if(casillas[6] > 0 && casillas[6] <=6){
-            casillas[6]++;
+        if(casillas[6] >= 0 && casillas[6] <6){
+            ++casillas[6];
         }
         else{
-            jug += 6;
+            jug = 6;
             casillas[6] = 0;
         }
     }
     else if(dados == 7){
-        if(casillas[7] > 0 && casillas[7] <=4){
-            casillas[7]++;
+        if(casillas[7] >= 0 && casillas[7] <4){
+            ++casillas[7];
         }
         else{
-            jug += 4;
+            jug = 4;
             casillas[7] = 0;
         }
     }
     else if(dados == 8){
-        if(casillas[8] > 0 && casillas[8] <=8){
-            casillas[8]++;
+        if(casillas[8] >= 0 && casillas[8] <8){
+            ++casillas[8];
         }
         else{
-            jug += 8;
+            jug = 8;
             casillas[8] = 0;
         }
     }
     else if(dados == 9){
-        if(casillas[9] > 0 && casillas[9] <=9){
-            casillas[9]++;
+        if(casillas[9] >= 0 && casillas[9] <9){
+            ++casillas[9];
         }
         else{
-            jug += 9;
+            jug = 9;
             casillas[9] = 0;
         }
     }
     else if(dados == 10){
-        if(casillas[10] > 0 && casillas[10] <=10){
-            casillas[10]++;
+        if(casillas[10] >= 0 && casillas[10] <10){
+            ++casillas[10];
         }
         else{
-            jug += 10;
-            casillas[10] = 0;
+            jug = 10;
+           casillas[10] = 0;
         }
     }
     else if(dados == 11){
-        if(casillas[11] > 0 && casillas[11] <=11){
-            casillas[11]++;
+        if(casillas[11] >= 0 && casillas[11] <11){
+            ++casillas[11];
         }
         else{
-            jug += 11;
-            casillas[11] = 0;
+            jug = 11;
+           casillas[11] = 0;
         }
     }
     else{
-        jug += casillas[7];
+        jug = casillas[7];
         casillas[7] = 0;
     }
+    return jug;
 }
 function sin_fichas(){}
 
 function jugar(turno){
     if(turno == 1){
-        rellenar_casillas(dados(),jugadores[1].puntos);
+        let a = rellenar_casillas(dados());
+        jugadores[1].puntos += a;
     }
     else if(turno == 2){
         rellenar_casillas(dados(),jugadores[2].puntos);
@@ -312,30 +276,41 @@ var mov = 0;
 var tur = 0;
 
 function caso1(){
+        console.log("**************");
         console.log("Turno jugador1");
+        console.log("**************");
         tur = 1;
-  }
-  function caso2(empezar){
+}
+
+function caso2(empezar){
     if(empezar == 1){
         if(mov == 0){
+            console.log("**************");
             console.log("Turno jugador1");
+            console.log("**************");
             mov = 1;
             tur = 1;
         }
         else{
+            console.log("**************");
             console.log("Turno jugador2");
+            console.log("**************");
             mov = 0;
             tur = 2;
         }
     }
     else{
         if(mov == 0){
+            console.log("**************");
             console.log("Turno jugador2");
+            console.log("**************");
             mov = 1;
             tur = 2;
         }
         else{
+            console.log("**************");
             console.log("Turno jugador1");
+            console.log("**************");
             mov = 0;
             tur = 1;
         }
@@ -344,51 +319,69 @@ function caso1(){
   function caso3(empezar){
     if(empezar == 1){
         if(mov == 0){
-            console.log("Turno jugador1")
+            console.log("**************");
+            console.log("Turno jugador1");
+            console.log("**************");
             mov = 1;
             tur = 1;
         }
         else if(mov == 1){
-            console.log("Turno jugador2")
+            console.log("**************");
+            console.log("Turno jugador2");
+            console.log("**************");
             mov = 2;
             tur = 2;
         }
         else{
-            console.log("Turno jugador3")
+            console.log("**************");
+            console.log("Turno jugador3");
+            console.log("**************");
             mov = 0;
             tur = 3;
         }
     }
     else if(empezar == 2){
         if(mov == 0){
-            console.log("Turno jugador2")
+            console.log("**************");
+            console.log("Turno jugador2");
+            console.log("**************");
             mov = 1;
             tur = 2;
         }
         else if(mov == 1){
-            console.log("Turno jugador3")
+            console.log("**************");
+            console.log("Turno jugador3");
+            console.log("**************");
             mov = 2;
             tur = 3;
         }
         else{
-            console.log("Turno jugador1")
+            console.log("**************");
+            console.log("Turno jugador1");
+            console.log("**************");
             mov = 0;
             tur = 1;
         }
     }
     else{
         if(mov == 0){
-            console.log("Turno jugador3")
+            console.log("**************");
+            console.log("Turno jugador3");
+            console.log("**************");
             mov = 1;
             tur = 3;
         }
         else if(mov == 1){
-            console.log("Turno jugador2")
+            console.log("**************");
+            console.log("Turno jugador2");
+            console.log("**************");
             mov = 2;
             tur = 2;
         }
         else{
-            console.log("Turno jugador1")
+            console.log("**************");
+            console.log("Turno jugador1");
+            console.log("**************");
             mov = 0;
             tur = 1;
         }
@@ -397,88 +390,120 @@ function caso1(){
   function caso4(empezar){
     if(empezar == 1){
         if(mov == 0){
-            console.log("Turno jugador1")
+            console.log("**************");
+            console.log("Turno jugador1");
+            console.log("**************");
             mov = 1;
             tur = 1;
         }
         else if(mov == 1){
-            console.log("Turno jugador2")
+            console.log("**************");
+            console.log("Turno jugador2");
+            console.log("**************");
             mov = 2;
             tur = 2;
         }
         else if(mov == 2){
-            console.log("Turno jugador3")
+            console.log("**************");
+            console.log("Turno jugador3");
+            console.log("**************");
             mov = 3;
             tur = 3;
         }
         else{
-            console.log("Turno jugador4")
+            console.log("**************");
+            console.log("Turno jugador4");
+            console.log("**************");
             mov = 0;
             tur = 4;
         }
     }
     else if(empezar == 2){
         if(mov == 0){
-            console.log("Turno jugador2")
+            console.log("**************");
+            console.log("Turno jugador2");
+            console.log("**************");
             mov = 1;
             tur = 2;
         }
         else if(mov == 1){
-            console.log("Turno jugador3")
+            console.log("**************");
+            console.log("Turno jugador3");
+            console.log("**************");
             mov = 2;
             tur = 3;
         }
         else if(mov == 2){
-            console.log("Turno jugador4")
+            console.log("**************");
+            console.log("Turno jugador4");
+            console.log("**************");
             mov = 3;
             tur = 4;
         }
         else{
-            console.log("Turno jugador1")
+            console.log("**************");
+            console.log("Turno jugador1");
+            console.log("**************");
             mov = 0;
             tur = 1;
         }
     }
     else if(empezar == 3){
         if(mov == 0){
-            console.log("Turno jugador3")
+            console.log("**************");
+            console.log("Turno jugador3");
+            console.log("**************");
             mov = 1;
             tur = 3;
         }
         else if(mov == 1){
-            console.log("Turno jugador4")
+            console.log("**************");
+            console.log("Turno jugador4");
+            console.log("**************");
             mov = 2;
             tur = 4;
         }
         else if(mov == 2){
-            console.log("Turno jugador1")
+            console.log("**************");
+            console.log("Turno jugador1");
+            console.log("**************");
             mov = 3;
             tur = 1;
         }
         else{
-            console.log("Turno jugador2")
+            console.log("**************");
+            console.log("Turno jugador2");
+            console.log("**************");
             mov = 0;
             tur = 2;
         }
     }
     else{
         if(mov == 0){
-            console.log("Turno jugador4")
+            console.log("**************");
+            console.log("Turno jugador4");
+            console.log("**************");
             mov = 1;
             tur = 4;
         }
         else if(mov == 1){
-            console.log("Turno jugador1")
+            console.log("**************");
+            console.log("Turno jugador1");
+            console.log("**************");
             mov = 2;
             tur = 1;
         }
         else if(mov == 2){
-            console.log("Turno jugador2")
+            console.log("**************");
+            console.log("Turno jugador2");
+            console.log("**************");
             mov = 3;
             tur = 2;
         }
         else{
-            console.log("Turno jugador3")
+            console.log("**************");
+            console.log("Turno jugador3");
+            console.log("**************");
             mov = 0;
             tur = 3;
         }
@@ -487,135 +512,185 @@ function caso1(){
   function caso5(empezar){
     if(empezar == 1){
         if(mov == 0){
-            console.log("Turno jugador1")
+            console.log("**************");
+            console.log("Turno jugador1");
+            console.log("**************");
             mov = 1;
             tur = 1;
         }
         else if(mov == 1){
-            console.log("Turno jugador2")
+            console.log("**************");
+            console.log("Turno jugador2");
+            console.log("**************");
             mov = 2;
             tur = 2;
         }
         else if(mov == 2){
-            console.log("Turno jugador3")
+            console.log("**************");
+            console.log("Turno jugador3");
+            console.log("**************");
             mov = 3;
             tur = 3;
         }
         else if(mov == 3){
-            console.log("Turno jugador4")
+            console.log("**************");
+            console.log("Turno jugador4");
+            console.log("**************");
             mov = 4;
             tur = 4;
         }
         else{
-            console.log("Turno jugador5")
+            console.log("**************");
+            console.log("Turno jugador5");
+            console.log("**************");
             mov = 0;
             tur = 5;
         }
     }
     else if(empezar == 2){
         if(mov == 0){
-            console.log("Turno jugador2")
+            console.log("**************");
+            console.log("Turno jugador2");
+            console.log("**************");
             mov = 1;
             tur = 2;
         }
         else if(mov == 1){
-            console.log("Turno jugador3")
+            console.log("**************");
+            console.log("Turno jugador3");
+            console.log("**************");
             mov = 2;
             tur = 3;
         }
         else if(mov == 2){
-            console.log("Turno jugador4")
+            console.log("**************");
+            console.log("Turno jugador4");
+            console.log("**************");
             mov = 3;
             tur = 4;
         }
         else if(mov == 3){
-            console.log("Turno jugador5")
+            console.log("**************");
+            console.log("Turno jugador5");
+            console.log("**************");
             mov = 4;
             tur = 5;
         }
         else{
-            console.log("Turno jugador1")
+            console.log("**************");
+            console.log("Turno jugador1");
+            console.log("**************");
             mov = 0;
             tur = 1;
         }
     }
     else if(empezar == 3){
         if(mov == 0){
-            console.log("Turno jugador3")
+            console.log("**************");
+            console.log("Turno jugador3");
+            console.log("**************");
             mov = 1;
             tur = 3;
         }
         else if(mov == 1){
-            console.log("Turno jugador4")
+            console.log("**************");
+            console.log("Turno jugador4");
+            console.log("**************");
             mov = 2;
             tur = 4;
         }
         else if(mov == 2){
-            console.log("Turno jugador5")
+            console.log("**************");
+            console.log("Turno jugador5");
+            console.log("**************");
             mov = 3;
             tur = 5;
         }
         else if(mov == 3){
-            console.log("Turno jugador1")
+            console.log("**************");
+            console.log("Turno jugador1");
+            console.log("**************");
             mov = 4;
             tur = 1;
         }
         else{
-            console.log("Turno jugador2")
+            console.log("**************");
+            console.log("Turno jugador2");
+            console.log("**************");
             mov = 0;
             tur = 2;
         }
     }
     else if(empezar == 4){
         if(mov == 0){
-            console.log("Turno jugador4")
+            console.log("**************");
+            console.log("Turno jugador4");
+            console.log("**************");
             mov = 1;
             tur = 4;
         }
         else if(mov == 1){
-            console.log("Turno jugador5")
+            console.log("**************");
+            console.log("Turno jugador5");
+            console.log("**************");
             mov = 2;
             tur = 5;
         }
         else if(mov == 2){
-            console.log("Turno jugador1")
+            console.log("**************");
+            console.log("Turno jugador1");
+            console.log("**************");
             mov = 3;
             tur = 1;
         }
         else if(mov == 3){
-            console.log("Turno jugador2")
+            console.log("**************");
+            console.log("Turno jugador2");
+            console.log("**************");
             mov = 4;
             tur = 2;
         }
         else{
-            console.log("Turno jugador3")
+            console.log("**************");
+            console.log("Turno jugador3");
+            console.log("**************");
             mov = 0;
             tur = 3;
         }
     }
     else{
         if(mov == 0){
-            console.log("Turno jugador5")
+            console.log("**************");
+            console.log("Turno jugador5");
+            console.log("**************");
             mov = 1;
             tur = 5;
         }
         else if(mov == 1){
-            console.log("Turno jugador1")
+            console.log("**************");
+            console.log("Turno jugador1");
+            console.log("**************");
             mov = 2;
             tur = 1;
         }
         else if(mov == 2){
-            console.log("Turno jugador2")
+            console.log("**************");
+            console.log("Turno jugador2");
+            console.log("**************");
             mov = 3;
             tur = 2;
         }
         else if(mov == 3){
-            console.log("Turno jugador3")
+            console.log("**************");
+            console.log("Turno jugador3");
+            console.log("**************");
             mov = 4;
             tur = 3;
         }
         else{
-            console.log("Turno jugador4")
+            console.log("**************");
+            console.log("Turno jugador4");
+            console.log("**************");
             mov = 0;
             tur = 4;
         }
@@ -648,24 +723,23 @@ let a = true;
 let b = true;
 do{
     let participantes = parseInt(prompt("Ingrea los participantes: "));
+    Tablero();
+
+    const c = empezar(participantes);
+    reparto_fichas(participantes,c);
     do{
-        const c = empezar(participantes);
-        /*console.log(Participantes(participantes));*/
-        Tablero();
-         //muestra el numero de fichas
-        //mostrar_numero_jugadores(participantes); //muestra el numero de jugadores
-        //let sip = prompt("Pulse enter");
-        //if(sip == ""){
-            //console.log(Tablero());
+        let sip = prompt("Siguente jugador: Pulse enter\n");
+        if(sip == ""){
             //console.log(c);
-            for(let i=0;i<6;i++){
-                jugar(turno(participantes,c));
-                Tablero();
-                reparto_fichas(participantes,empezar(participantes));
-                mostrar_numero_jugadores(jugadores);
-            }
+            //for(let i=0;i<6;i++){ 
+                jugar(turno(participantes,c))+"\n";
+                Tablero()+"\n";
+                mostrar_numero_jugadores(participantes)+"\n";
+            //}
+        }
+        if(casillas[2] == 2){
             cerrar2();
-        //}
+        }
     }while(b == true);
     cerrar1();
 }while(a == true);
