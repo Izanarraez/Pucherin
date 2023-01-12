@@ -652,15 +652,17 @@ do{
         const c = empezar(participantes);
         /*console.log(Participantes(participantes));*/
         Tablero();
-        reparto_fichas(participantes,empezar(participantes)); //muestra el numero de fichas
-        mostrar_numero_jugadores(participantes); //muestra el numero de jugadores
+         //muestra el numero de fichas
+        //mostrar_numero_jugadores(participantes); //muestra el numero de jugadores
         //let sip = prompt("Pulse enter");
         //if(sip == ""){
             //console.log(Tablero());
-            console.log(c);
+            //console.log(c);
             for(let i=0;i<6;i++){
                 jugar(turno(participantes,c));
                 Tablero();
+                reparto_fichas(participantes,empezar(participantes));
+                mostrar_numero_jugadores(jugadores);
             }
             cerrar2();
         //}
