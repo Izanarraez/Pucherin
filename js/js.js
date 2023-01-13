@@ -1,30 +1,147 @@
 var container = document.querySelector(".box");
 var casillas=9;
+
+// crear puchero
+var puchero = document.createElement('canvas');
+puchero.classList.add('puchero');
+puchero.width = 120;
+puchero.height = 120;
+container.appendChild(puchero);
+pintarPuchero(puchero,0);
+/* Crear elementos canvas para las casillas
+Usar un bucle for para crear los elementos de manera automática 
+Los canvas se formarán en una elipse  */
+for (var i = 0; i < casillas; i++) {
+    // Crear un elemento canvas
+    var canvas = document.createElement('canvas');
+    canvas.classList.add('casilla');
+    // Establecer el ancho y alto del canvas en 50 (cada canvas será de 50 x 50)
+    canvas.width = 120;
+    canvas.height = 120;
+    // Añadir el canvas a la página
+    container.appendChild(canvas);
+ 
+}
+
+// Obtener una referencia a todos los elementos canvas en la página
+var canvases = document.querySelectorAll('.casilla');
+
+
+
+// Dibujar una elipse en cada canvas y posicionarlos en una elipse de 
+for (var i = 0; i < canvases.length; i++) {
+    // Obtener el contexto del canvas en 2D
+    var ctx = canvases[i].getContext('2d');
+
+    // Dibujar una elipse en el canvas
+    ctx.beginPath();  
+    
+    //ctx.ellipse(35, 35, 35, 35, 0, 0, 2 * Math.PI);
+    //ctx.stroke();
+
+    // Posicionar el canvas en la elipse 
+    canvases[i].style.left = Math.cos(2 * Math.PI * i / casillas) * 400 + 400 - 25 + 'px';
+    canvases[i].style.top = Math.sin(2 * Math.PI * i / casillas) * 250 + 300  - 25  + 'px';
+    
+    if (i>4) pintarCasilla(canvases[i],i+3)
+    else pintarCasilla(canvases[i],i+2)
+}
+
+
+
+function pintarCasilla(canvas, fichas, num){
+    var ctx = canvas.getContext('2d');
+    ctx.arc(canvas.width / 2, canvas.height / 2, 60, 0, 2 * Math.PI);
+    ctx.fillStyle = 'green';
+    ctx.fill();
+    for (var i = 0; i < fichas; i++) {
+        // Calcular la posición en el círculo para cada ficha
+        var x = Math.cos(2 * Math.PI * i / fichas) * 35 + canvas.width / 2;
+        var y = Math.sin(2 * Math.PI * i / fichas) * 35 + canvas.height / 2;
+    
+        // Dibujar la ficha en la posición calculada
+        ctx.beginPath();
+        ctx.arc(x, y, 9, 0, 2 * Math.PI);
+        if (i < num ) ctx.fillStyle = 'red'
+           else ctx.fillStyle = 'white'
+        ctx.fill();
+        
+        ctx.fillStyle = 'white';
+        // Establecer la fuente para el texto
+        ctx.font = '24px sans-serif';
+        // Dibujar el número en el canvas usando el método fillText()
+        x = canvas.width / 2 - ctx.measureText(fichas).width / 2;
+        y = canvas.height / 2 + 10;
+        ctx.fillText(fichas, x, y);
+    }
+ 
+}
+
+function pintarPuchero(canvas,num){
+    var ctx = canvas.getContext('2d');
+    ctx.arc(canvas.width / 2, canvas.height / 2, 60, 0, 2 * Math.PI);
+    ctx.fillStyle = 'red';
+    ctx.fill();
+    for (var i = 0; i < 4; i++) {
+        // Calcular la posición en el círculo para cada ficha
+        var x = Math.cos(2 * Math.PI * i / 4) * 35 + canvas.width / 2;
+        var y = Math.sin(2 * Math.PI * i / 4) * 35 + canvas.height / 2;
+        // Dibujar la ficha en la posición calculada
+        ctx.beginPath();
+        ctx.arc(x, y, 9, 0, 2 * Math.PI);
+        if (i < num ) ctx.fillStyle = 'blue'
+            else ctx.fillStyle = 'white'
+        ctx.fill();
+        ctx.fillStyle = 'white';
+        // Establecer la fuente para el texto
+         ctx.font = '24px sans-serif';
+         // Dibujar el número en el canvas usando el método fillText()
+         x = canvas.width / 2 - ctx.measureText(7).width / 2;
+         y = canvas.height / 2 + 10;
+         ctx.fillText(7, x, y);
+    }
+    
+}
+
+//VARIOABLES AUXILIARES
 var orden=1;
+jugVac=0;   
+compyeno=0;
+var cartelVictoria=document.getElementById("CatelGanador");
+var mainJuego=document.getElementById("mainJuego");
+var winer=document.getElementById("winer");
+
 
 var jugadores = {
     1: {
         fichas: 0,
+        casis: [],
         puntos: 0
     },
     2: {
         fichas: 0,
+        casis: [],
         puntos: 0
     },
     3: {
         fichas: 0,
+        casis: [],
         puntos: 0
     },
     4: {
         fichas: 0,
+        casis: [],
         puntos: 0
     },
     5: {
         fichas: 0,
+        casis: [],
         puntos: 0
     }
 }  
 
+
+refrescarVictoria();
 
 //Casillas rellenas
 var can0=0;
@@ -36,10 +153,8 @@ var can5=0;
 var can6=0;
 var can7=0;
 var can8=0;
+var canPuch=0;
 
-//Motor de juego
-let a = true;
-let b = true;
 let participantes = parseInt(prompt("Cuantos jugadores van a ser: Maximo 5"));
 reparto_fichas()
 var turnoJugador=document.getElementById("turno");
@@ -59,26 +174,29 @@ function pl1(){
     switch(orden){
         case 1:
             aux=1;
-            rellenarFinal(aux);
-            jugadores[1].fichas=jugadores[1].fichas-1;
-            turnoJugador.innerHTML="Tu turno, jugador solitario";
+            if(jugadores[1].fichas>0){
+                rellenarFinal(aux);
+                jugadores[1].fichas=jugadores[1].fichas-1;
+                turnoJugador.innerHTML="Tu turno, jugador solitario";
+            }else{
+                comprVictoria(aux);
+            }
         break;
-    }    
+    }
 }
 function pl2(){
     var aux;
+    compyeno=2;
     switch(orden){
         case 1:
             aux=1;
-            rellenarFinal(aux);
-            jugadores[1].fichas=jugadores[1].fichas-1;
+            add(aux,compyeno);
             orden+=1;
             turnoJugador.innerHTML="Turno del jugador 2";
         break;
         case 2:
             aux=2;
-            rellenarFinal(aux);
-            jugadores[2].fichas=jugadores[2].fichas-1;
+            add(aux,compyeno);
             orden=1;
             turnoJugador.innerHTML="Turno del jugador 1";
         break;
@@ -86,101 +204,104 @@ function pl2(){
 }
 function pl3(){
     var aux;
+    compyeno=3;
     switch(orden){
         case 1:
             aux=1;
-            rellenarFinal(aux);
-            jugadores[1].fichas=jugadores[1].fichas-1;
+            add(aux,compyeno);
             orden+=1;
             turnoJugador.innerHTML="Turno del jugador 2";
         break;
         case 2:
             aux=2;
-            rellenarFinal(aux);
-            jugadores[2].fichas=jugadores[2].fichas-1;
+            add(aux,compyeno);
             orden+=1;
-            turnoJugador.innerHTML="Turno del jugador 1";
+            turnoJugador.innerHTML="Turno del jugador 3";
         break;
         case 3:
             aux=3;
-            rellenarFinal(aux);
-            jugadores[3].fichas=jugadores[3].fichas-1;
+            add(aux,compyeno);
             orden=1;
-            turnoJugador.innerHTML="Turno del jugador 2";
+            turnoJugador.innerHTML="Turno del jugador 1";
         break;
     }
 }
 function pl4(){
     var aux;
+    compyeno=4;
     switch(orden){
         case 1:
             aux=1;
-            rellenarFinal(aux);
-            jugadores[1].fichas=jugadores[1].fichas-1;
-            orden+=1;
-            turnoJugador.innerHTML="Turno del jugador 4";
-        break;
-        case 2:
-            aux=2;
-            rellenarFinal(aux);
-            jugadores[2].fichas=jugadores[2].fichas-1;
-            orden+=1;
-            turnoJugador.innerHTML="Turno del jugador 1";
-        break;
-        case 3:
-            aux=3;
-            rellenarFinal(aux);
-            jugadores[3].fichas=jugadores[3].fichas-1;
+            add(aux,compyeno);
             orden+=1;
             turnoJugador.innerHTML="Turno del jugador 2";
         break;
+        case 2:
+            aux=2;
+            add(aux,compyeno);
+            orden+=1;
+            turnoJugador.innerHTML="Turno del jugador 3";
+        break;
+        case 3:
+            aux=3;
+            add(aux,compyeno);
+            orden+=1;
+            turnoJugador.innerHTML="Turno del jugador 4";
+        break;
         case 4:
             aux=4;
-            rellenarFinal(aux);
-            jugadores[4].fichas=jugadores[4].fichas-1;
+            add(aux,compyeno);
             orden=1;
-            turnoJugador.innerHTML="Turno del jugador 3";
+            turnoJugador.innerHTML="Turno del jugador 1";
         break;
     }
 }
 function pl5(){
     var aux;
+    compyeno=5;
     switch(orden){
         case 1:
             aux=1;
-            rellenarFinal(aux);
-            jugadores[1].fichas=jugadores[1].fichas-1;
-            orden+=1;
-            turnoJugador.innerHTML="Turno del jugador 5";
-        break;
-        case 2:
-            aux=2;
-            rellenarFinal(aux);
-            jugadores[2].fichas=jugadores[2].fichas-1;
-            orden+=1;
-            turnoJugador.innerHTML="Turno del jugador 1";
-        break;
-        case 3:
-            aux=3;
-            rellenarFinal(aux);
-            jugadores[3].fichas=jugadores[3].fichas-1;
+            add(aux,compyeno);
             orden+=1;
             turnoJugador.innerHTML="Turno del jugador 2";
         break;
-        case 4:
-            aux=4;
-            rellenarFinal(aux);
-            jugadores[4].fichas=jugadores[4].fichas-1;
+        case 2:
+            aux=2;
+            add(aux,compyeno);
             orden+=1;
             turnoJugador.innerHTML="Turno del jugador 3";
         break;
-        case 5:
-            aux=5;
-            rellenarFinal(aux);
-            jugadores[5].fichas=jugadores[5].fichas-1;
-            orden=1;
+        case 3:
+            aux=3;
+            add(aux,compyeno);
+            orden+=1;
             turnoJugador.innerHTML="Turno del jugador 4";
         break;
+        case 4:
+            aux=4;
+            add(aux,compyeno);
+            orden+=1;
+            turnoJugador.innerHTML="Turno del jugador 5";
+        break;
+        case 5:
+            aux=5;
+            add(aux,compyeno);
+            orden=1;
+            turnoJugador.innerHTML="Turno del jugador 1";
+        break;
+    }
+}
+function add(aux,comp){
+    if((jugadores[aux].fichas-1)>0){
+        rellenarFinal(aux);
+        jugadores[aux].fichas=jugadores[aux].fichas-1;
+    }else{
+        jugadores[aux].fichas=0;
+        jugVac+=1;
+        if(jugVac==comp){
+            comprVictoria(comp);
+        }
     }
 }
 function rellenarFinal(aux){
@@ -192,8 +313,10 @@ function rellenarFinal(aux){
                 can0=0;
                 jugadores[aux].puntos=jugadores[aux].puntos+num;
                 pintarCasilla(canvases[0],num,can0);
+                jugadores[aux].casis.push("-C2-")
             }else{
                 pintarCasilla(canvases[0],num,can0);
+                jugadores[aux].casis.push("-C2-");
             }
         break;
         case 3:
@@ -202,8 +325,10 @@ function rellenarFinal(aux){
                 can1=0;
                 jugadores[aux].puntos=jugadores[aux].puntos+num;
                 pintarCasilla(canvases[1],num,can1);
+                jugadores[aux].casis.push("-C3-");
             }else{
                 pintarCasilla(canvases[1],num,can1);
+                jugadores[aux].casis.push("-C3-");
             }
         break;
         case 4:
@@ -212,8 +337,10 @@ function rellenarFinal(aux){
                 can2=0;
                 jugadores[aux].puntos=jugadores[aux].puntos+num;
                 pintarCasilla(canvases[2],num,can2);
+                jugadores[aux].casis.push("-C4-")
             }else{
                 pintarCasilla(canvases[2],num,can2);
+                jugadores[aux].casis.push("-C4-");
             }
         break;
         case 5:
@@ -222,8 +349,10 @@ function rellenarFinal(aux){
                 can3=0;
                 jugadores[aux].puntos=jugadores[aux].puntos+num;
                 pintarCasilla(canvases[3],num,can3);
+                jugadores[aux].casis.push("-C5-");
             }else{
                 pintarCasilla(canvases[3],num,can3);
+                jugadores[aux].casis.push("-C5-");
             }
         break;
         case 6:
@@ -232,8 +361,22 @@ function rellenarFinal(aux){
                 can4=0;
                 jugadores[aux].puntos=jugadores[aux].puntos+num;
                 pintarCasilla(canvases[4],num,can4);
+                jugadores[aux].casis.push("-C6-");
             }else{
                 pintarCasilla(canvases[4],num,can4);
+                jugadores[aux].casis.push("-C6-");
+            }
+        break;
+        case 7:
+            canPuch=canPuch+1;
+            if(canPuch==5){
+                canPuch=0;
+                jugadores[aux].puntos=jugadores[aux].puntos+canPuch;
+                pintarPuchero(puchero,canPuch);
+                jugadores[aux].casis.push("-Puchero-")
+            }else{
+                pintarPuchero(puchero,canPuch);
+                jugadores[aux].casis.push("-Puchero-");
             }
         break;
         case 8:
@@ -242,8 +385,10 @@ function rellenarFinal(aux){
                 can5=0;
                 jugadores[aux].puntos=jugadores[aux].puntos+num;
                 pintarCasilla(canvases[5],num,can5);
+                jugadores[aux].casis.push("-C8-");
             }else{
                 pintarCasilla(canvases[5],num,can5);
+                jugadores[aux].casis.push("-C8-");
             }
         break;
         case 9:
@@ -252,8 +397,10 @@ function rellenarFinal(aux){
                 can6=0;
                 jugadores[aux].puntos=jugadores[aux].puntos+num;
                 pintarCasilla(canvases[6],num,can6);
+                jugadores[aux].casis.push("-C9-");
             }else{
                 pintarCasilla(canvases[6],num,can6);
+                jugadores[aux].casis.push("-C9-");
             }
         break;
         case 10:
@@ -262,8 +409,10 @@ function rellenarFinal(aux){
                 can7=0;
                 jugadores[aux].puntos=jugadores[aux].puntos+num;
                 pintarCasilla(canvases[7],num,can7);
+                jugadores[aux].casis.push("-C10-");
             }else{
                 pintarCasilla(canvases[7],num,can7);
+                jugadores[aux].casis.push("-C10-");
             }
         break;
         case 11:
@@ -272,8 +421,21 @@ function rellenarFinal(aux){
                 can8=0;
                 jugadores[aux].puntos=jugadores[aux].puntos+num;
                 pintarCasilla(canvases[8],num,can8);
+                jugadores[aux].casis.push("-C11-");
             }else{
                 pintarCasilla(canvases[8],num,can8);
+                jugadores[aux].casis.push("-C11-");
+            }
+        break;
+        case 12:
+            if(jugadores[aux].fichas==0){
+                winer.innerHTML="GANADOR JUGADOR "+aux;
+                jugadores[aux].casis.push("-BoteGordo-");
+            }else{
+                jugadores[aux].puntos=jugadores[aux].puntos+canPuch;
+                canPuch=0;
+                pintarPuchero(puchero,canPuch);
+                jugadores[aux].casis.push("-Bote-");
             }
         break;
     }
@@ -330,72 +492,94 @@ var tp3=document.getElementById("tp3");
 var tp4=document.getElementById("tp4");
 var tp5=document.getElementById("tp5");
 
+//historial de movimientos
+var move1=document.getElementById("move1");
+var move2=document.getElementById("move2");
+var move3=document.getElementById("move3");
+var move4=document.getElementById("move4");
+var move5=document.getElementById("move5");
+
 //MOSTRAR PUTUNTUACION
 function puntuaciones(){
     switch(participantes){
         case 1:
             f1.innerHTML=jugadores[1].fichas
             tp1.innerHTML=jugadores[1].puntos
+            move1.innerHTML=jugadores[1].casis
             j1.style.display="block";
         break;
         case 2:
             f1.innerHTML=jugadores[1].fichas
             tp1.innerHTML=jugadores[1].puntos
+            move1.innerHTML=jugadores[1].casis
             j1.style.display="block";
 
             f2.innerHTML=jugadores[2].fichas
             tp2.innerHTML=jugadores[2].puntos
+            move2.innerHTML=jugadores[2].casis
             j2.style.display="block";
         break;
         case 3:
             f1.innerHTML=jugadores[1].fichas
             tp1.innerHTML=jugadores[1].puntos
+            move1.innerHTML=jugadores[1].casis
             j1.style.display="block";
 
             f2.innerHTML=jugadores[2].fichas
             tp2.innerHTML=jugadores[2].puntos
+            move2.innerHTML=jugadores[2].casis
             j2.style.display="block";
 
             f3.innerHTML=jugadores[3].fichas
             tp3.innerHTML=jugadores[3].puntos
+            move3.innerHTML=jugadores[3].casis
             j3.style.display="block";
         break;
         case 4:
             f1.innerHTML=jugadores[1].fichas
             tp1.innerHTML=jugadores[1].puntos
+            move1.innerHTML=jugadores[1].casis
             j1.style.display="block";
 
             f2.innerHTML=jugadores[2].fichas
             tp2.innerHTML=jugadores[2].puntos
+            move2.innerHTML=jugadores[2].casis
             j2.style.display="block";
 
             f3.innerHTML=jugadores[3].fichas
             tp3.innerHTML=jugadores[3].puntos
+            move3.innerHTML=jugadores[3].casis
             j3.style.display="block";
 
             f4.innerHTML=jugadores[4].fichas
             tp4.innerHTML=jugadores[4].puntos
+            move4.innerHTML=jugadores[4].casis
             j4.style.display="block";
         break;
         case 5:
             f1.innerHTML=jugadores[1].fichas
             tp1.innerHTML=jugadores[1].puntos
+            move1.innerHTML=jugadores[1].casis
             j1.style.display="block";
 
             f2.innerHTML=jugadores[2].fichas
             tp2.innerHTML=jugadores[2].puntos
+            move2.innerHTML=jugadores[2].casis
             j2.style.display="block";
 
             f3.innerHTML=jugadores[3].fichas
             tp3.innerHTML=jugadores[3].puntos
+            move3.innerHTML=jugadores[3].casis
             j3.style.display="block";
 
             f4.innerHTML=jugadores[4].fichas
             tp4.innerHTML=jugadores[4].puntos
+            move4.innerHTML=jugadores[4].casis
             j4.style.display="block";
 
             f5.innerHTML=jugadores[5].fichas
             tp5.innerHTML=jugadores[5].puntos
+            move5.innerHTML=jugadores[5].casis
             j5.style.display="block";
         break;
     }
@@ -410,7 +594,85 @@ function dados(){
     return suma;
 }
  
-
+function comprVictoria(comp){
+    switch(comp){
+        case 1:
+            winer.innerHTML="GANADOR JUGADOR SOLITARIO";
+            confirVictoria();
+        break;
+        case 2:
+            if(jugadores[1].puntos>jugadores[2].puntos){
+                winer.innerHTML="GANADOR JUGADOR 1";
+                confirVictoria();
+            }
+        break;
+        case 3:
+            if(jugadores[1].puntos>jugadores[2].puntos && jugadores[1].puntos>jugadores[3].puntos){
+                winer.innerHTML="GANADOR JUGADOR 1";
+                confirVictoria();
+            }else{
+                if(jugadores[2].puntos>jugadores[3].puntos){
+                    winer.innerHTML="GANADOR JUGADOR 2";
+                    confirVictoria();
+                }else{
+                    winer.innerHTML="GANADOR JUGADOR 3";
+                    confirVictoria();
+                }
+            }
+        break;
+        case 4:
+            if(jugadores[1].puntos>jugadores[2].puntos && jugadores[1].puntos>jugadores[3].puntos && jugadores[1].puntos>jugadores[4].puntos){
+                winer.innerHTML="GANADOR JUGADOR 1";
+                confirVictoria();
+            }else{
+                if(jugadores[2].puntos>jugadores[3].puntos && jugadores[2].puntos>jugadores[4].puntos){
+                    winer.innerHTML="GANADOR JUGADOR 2";
+                    confirVictoria();
+                }else{
+                    if(jugadores[3].puntos>jugadores[4].puntos){
+                        winer.innerHTML="GANADOR JUGADOR 3";
+                        confirVictoria();
+                    }else{
+                        winer.innerHTML="GANADOR JUGADOR 4";
+                        confirVictoria();
+                    }
+                }
+            }
+        break;
+        case 5:
+            if(jugadores[1].puntos>jugadores[2].puntos && jugadores[1].puntos>jugadores[3].puntos && jugadores[1].puntos>jugadores[4].puntos && jugadores[1].puntos>jugadores[5].puntos){
+                winer.innerHTML="GANADOR JUGADOR 1";
+                confirVictoria();
+            }else{
+                if(jugadores[2]>jugadores[3] && jugadores[2].puntos>jugadores[4].puntos && jugadores[2].puntos>jugadores[5].puntos){
+                    winer.innerHTML="GANADOR JUGADOR 2";
+                    confirVictoria();
+                }else{
+                    if(jugadores[3].puntos>jugadores[4].puntos && jugadores[3].puntos>jugadores[5].puntos){
+                        winer.innerHTML="GANADOR JUGADOR 3";
+                        confirVictoria();
+                    }else{
+                        if(jugadores[4].puntos>jugadores[5].puntos){
+                            winer.innerHTML="GANADOR JUGADOR 4";
+                            confirVictoria();
+                        }else{
+                            winer.innerHTML="GANADOR JUGADOR 5";
+                            confirVictoria();
+                        }
+                    }
+                }
+            }
+        break;
+    }
+}
+function confirVictoria(){
+    mainJuego.style.display="none";
+    cartelVictoria.style.display="block";
+}
+function refrescarVictoria(){
+    mainJuego.style.display="block";
+    cartelVictoria.style.display="none";
+}
 
 
 
@@ -436,110 +698,7 @@ function dados(){
 
 
 
-// crear puchero
-var puchero = document.createElement('canvas');
-puchero.classList.add('puchero');
-puchero.width = 120;
-puchero.height = 120;
-container.appendChild(puchero);
-pintarPuchero(puchero);
-/* Crear elementos canvas para las casillas
-Usar un bucle for para crear los elementos de manera automática 
-Los canvas se formarán en una elipse  */
-for (var i = 0; i < casillas; i++) {
- // Crear un elemento canvas
- var canvas = document.createElement('canvas');
- canvas.classList.add('casilla');
- // Establecer el ancho y alto del canvas en 50 (cada canvas será de 50 x 50)
- canvas.width = 120;
- canvas.height = 120;
- // Añadir el canvas a la página
- container.appendChild(canvas);
- 
-}
 
-// Obtener una referencia a todos los elementos canvas en la página
-var canvases = document.querySelectorAll('.casilla');
-
-
-
-// Dibujar una elipse en cada canvas y posicionarlos en una elipse de 
-for (var i = 0; i < canvases.length; i++) {
- // Obtener el contexto del canvas en 2D
- var ctx = canvases[i].getContext('2d');
-
- // Dibujar una elipse en el canvas
- ctx.beginPath();  
- 
- //ctx.ellipse(35, 35, 35, 35, 0, 0, 2 * Math.PI);
- //ctx.stroke();
-
- // Posicionar el canvas en la elipse 
- canvases[i].style.left = Math.cos(2 * Math.PI * i / casillas) * 400 + 400 - 25 + 'px';
- canvases[i].style.top = Math.sin(2 * Math.PI * i / casillas) * 250 + 300  - 25  + 'px';
- 
- if (i>4) pintarCasilla(canvases[i],i+3)
- else pintarCasilla(canvases[i],i+2)
-}
-
-
-
-function pintarCasilla(canvas, fichas, num){
- var ctx = canvas.getContext('2d');
- ctx.arc(canvas.width / 2, canvas.height / 2, 60, 0, 2 * Math.PI);
- ctx.fillStyle = 'green';
- ctx.fill();
- for (var i = 0; i < fichas; i++) {
-     // Calcular la posición en el círculo para cada ficha
-     var x = Math.cos(2 * Math.PI * i / fichas) * 35 + canvas.width / 2;
-     var y = Math.sin(2 * Math.PI * i / fichas) * 35 + canvas.height / 2;
-
-     // Dibujar la ficha en la posición calculada
-     ctx.beginPath();
-     ctx.arc(x, y, 9, 0, 2 * Math.PI);
-     if (i < num ) ctx.fillStyle = 'red'
-        else ctx.fillStyle = 'white'
-     ctx.fill();
-   
-    ctx.fillStyle = 'white';
-   // Establecer la fuente para el texto
-    ctx.font = '24px sans-serif';
-    // Dibujar el número en el canvas usando el método fillText()
-    x = canvas.width / 2 - ctx.measureText(fichas).width / 2;
-    y = canvas.height / 2 + 10;
-    ctx.fillText(fichas, x, y);
- }
- 
-}
-
-function pintarPuchero(canvas){
- var ctx = canvas.getContext('2d');
- ctx.arc(canvas.width / 2, canvas.height / 2, 60, 0, 2 * Math.PI);
- ctx.fillStyle = 'red';
- ctx.fill();
- for (var i = 0; i < 4; i++) {
-     // Calcular la posición en el círculo para cada ficha
-     var x = Math.cos(2 * Math.PI * i / 4) * 35 + canvas.width / 2;
-     var y = Math.sin(2 * Math.PI * i / 4) * 35 + canvas.height / 2;
-
-     // Dibujar la ficha en la posición calculada
-     ctx.beginPath();
-     ctx.arc(x, y, 9, 0, 2 * Math.PI);
-    
-     ctx.fillStyle = 'white'
-     ctx.fill();
-   
-   
-    ctx.fillStyle = 'white';
-   // Establecer la fuente para el texto
-    ctx.font = '24px sans-serif';
-    // Dibujar el número en el canvas usando el método fillText()
-    x = canvas.width / 2 - ctx.measureText(7).width / 2;
-    y = canvas.height / 2 + 10;
-    ctx.fillText(7, x, y);
- }
- 
-}
 
 // pintamos fichas aleatorias en el tablero
 /*for(let i=0; i < canvases.length; i++){
