@@ -42,6 +42,7 @@ let a = true;
 let b = true;
 let participantes = parseInt(prompt("Cuantos jugadores van a ser: Maximo 5"));
 reparto_fichas()
+var turnoJugador=document.getElementById("turno");
 
 function rellenarOrdenado(){
     switch(participantes){
@@ -54,137 +55,226 @@ function rellenarOrdenado(){
 }
 //tipo de ORDEN segun NUMERO DE JUGADORES
 function pl1(){
+    var aux;
     switch(orden){
         case 1:
-            rellenarFinal();
+            aux=1;
+            rellenarFinal(aux);
             jugadores[1].fichas=jugadores[1].fichas-1;
+            turnoJugador.innerHTML="Tu turno, jugador solitario";
         break;
     }    
 }
 function pl2(){
+    var aux;
     switch(orden){
         case 1:
-            rellenarFinal();
+            aux=1;
+            rellenarFinal(aux);
             jugadores[1].fichas=jugadores[1].fichas-1;
             orden+=1;
+            turnoJugador.innerHTML="Turno del jugador 2";
         break;
         case 2:
-            rellenarFinal();
+            aux=2;
+            rellenarFinal(aux);
             jugadores[2].fichas=jugadores[2].fichas-1;
             orden=1;
+            turnoJugador.innerHTML="Turno del jugador 1";
         break;
     }
 }
 function pl3(){
+    var aux;
     switch(orden){
         case 1:
-            rellenarFinal();
+            aux=1;
+            rellenarFinal(aux);
             jugadores[1].fichas=jugadores[1].fichas-1;
             orden+=1;
+            turnoJugador.innerHTML="Turno del jugador 2";
         break;
         case 2:
-            rellenarFinal();
+            aux=2;
+            rellenarFinal(aux);
             jugadores[2].fichas=jugadores[2].fichas-1;
             orden+=1;
+            turnoJugador.innerHTML="Turno del jugador 1";
         break;
         case 3:
-            rellenarFinal();
+            aux=3;
+            rellenarFinal(aux);
             jugadores[3].fichas=jugadores[3].fichas-1;
             orden=1;
+            turnoJugador.innerHTML="Turno del jugador 2";
         break;
     }
 }
 function pl4(){
+    var aux;
     switch(orden){
         case 1:
-            rellenarFinal();
+            aux=1;
+            rellenarFinal(aux);
             jugadores[1].fichas=jugadores[1].fichas-1;
             orden+=1;
+            turnoJugador.innerHTML="Turno del jugador 4";
         break;
         case 2:
-            rellenarFinal();
+            aux=2;
+            rellenarFinal(aux);
             jugadores[2].fichas=jugadores[2].fichas-1;
             orden+=1;
+            turnoJugador.innerHTML="Turno del jugador 1";
         break;
         case 3:
-            rellenarFinal();
+            aux=3;
+            rellenarFinal(aux);
             jugadores[3].fichas=jugadores[3].fichas-1;
             orden+=1;
+            turnoJugador.innerHTML="Turno del jugador 2";
         break;
         case 4:
-            rellenarFinal();
+            aux=4;
+            rellenarFinal(aux);
             jugadores[4].fichas=jugadores[4].fichas-1;
             orden=1;
+            turnoJugador.innerHTML="Turno del jugador 3";
         break;
     }
 }
 function pl5(){
+    var aux;
     switch(orden){
         case 1:
-            rellenarFinal();
+            aux=1;
+            rellenarFinal(aux);
             jugadores[1].fichas=jugadores[1].fichas-1;
             orden+=1;
+            turnoJugador.innerHTML="Turno del jugador 5";
         break;
         case 2:
-            rellenarFinal();
+            aux=2;
+            rellenarFinal(aux);
             jugadores[2].fichas=jugadores[2].fichas-1;
             orden+=1;
+            turnoJugador.innerHTML="Turno del jugador 1";
         break;
         case 3:
-            rellenarFinal();
+            aux=3;
+            rellenarFinal(aux);
             jugadores[3].fichas=jugadores[3].fichas-1;
             orden+=1;
+            turnoJugador.innerHTML="Turno del jugador 2";
         break;
         case 4:
-            rellenarFinal();
+            aux=4;
+            rellenarFinal(aux);
             jugadores[4].fichas=jugadores[4].fichas-1;
             orden+=1;
+            turnoJugador.innerHTML="Turno del jugador 3";
         break;
         case 5:
-            rellenarFinal();
+            aux=5;
+            rellenarFinal(aux);
             jugadores[5].fichas=jugadores[5].fichas-1;
             orden=1;
+            turnoJugador.innerHTML="Turno del jugador 4";
         break;
     }
 }
-function rellenarFinal(){
+function rellenarFinal(aux){
     var num=dados();
     switch(num){
         case 2:
             can0=can0+1;
-            pintarCasilla(canvases[0],num,can0);
+            if(can0==(num+1)){
+                can0=0;
+                jugadores[aux].puntos=jugadores[aux].puntos+num;
+                pintarCasilla(canvases[0],num,can0);
+            }else{
+                pintarCasilla(canvases[0],num,can0);
+            }
         break;
         case 3:
             can1=can1+1;
-            pintarCasilla(canvases[1],num,can1);
+            if(can1==(num+1)){
+                can1=0;
+                jugadores[aux].puntos=jugadores[aux].puntos+num;
+                pintarCasilla(canvases[1],num,can1);
+            }else{
+                pintarCasilla(canvases[1],num,can1);
+            }
         break;
         case 4:
             can2=can2+1;
-            pintarCasilla(canvases[2],num,can2);
+            if(can2==(num+1)){
+                can2=0;
+                jugadores[aux].puntos=jugadores[aux].puntos+num;
+                pintarCasilla(canvases[2],num,can2);
+            }else{
+                pintarCasilla(canvases[2],num,can2);
+            }
         break;
         case 5:
             can3=can3+1;
-            pintarCasilla(canvases[3],num,can3);
+            if(can3==(num+1)){
+                can3=0;
+                jugadores[aux].puntos=jugadores[aux].puntos+num;
+                pintarCasilla(canvases[3],num,can3);
+            }else{
+                pintarCasilla(canvases[3],num,can3);
+            }
         break;
         case 6:
             can4=can4+1;
-            pintarCasilla(canvases[4],num,can4);
+            if(can4==(num+1)){
+                can4=0;
+                jugadores[aux].puntos=jugadores[aux].puntos+num;
+                pintarCasilla(canvases[4],num,can4);
+            }else{
+                pintarCasilla(canvases[4],num,can4);
+            }
         break;
         case 8:
             can5=can5+1;
-            pintarCasilla(canvases[5],num,can5);
+            if(can5==(num+1)){
+                can5=0;
+                jugadores[aux].puntos=jugadores[aux].puntos+num;
+                pintarCasilla(canvases[5],num,can5);
+            }else{
+                pintarCasilla(canvases[5],num,can5);
+            }
         break;
         case 9:
             can6=can6+1;
-            pintarCasilla(canvases[6],num,can6);
+            if(can6==(num+1)){
+                can6=0;
+                jugadores[aux].puntos=jugadores[aux].puntos+num;
+                pintarCasilla(canvases[6],num,can6);
+            }else{
+                pintarCasilla(canvases[6],num,can6);
+            }
         break;
         case 10:
             can7=can7+1;
-            pintarCasilla(canvases[7],num,can7);
+            if(can7==(num+1)){
+                can7=0;
+                jugadores[aux].puntos=jugadores[aux].puntos+num;
+                pintarCasilla(canvases[7],num,can7);
+            }else{
+                pintarCasilla(canvases[7],num,can7);
+            }
         break;
         case 11:
             can8=can8+1;
-            pintarCasilla(canvases[8],num,can8);
+            if(can8==(num+1)){
+                can8=0;
+                jugadores[aux].puntos=jugadores[aux].puntos+num;
+                pintarCasilla(canvases[8],num,can8);
+            }else{
+                pintarCasilla(canvases[8],num,can8);
+            }
         break;
     }
 }
