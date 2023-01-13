@@ -8,43 +8,45 @@
     <title>Pucherin</title>
 </head>
 <body>
-    <header>
-        <div class="container">
-            <div id="tablero" class="box">
+    <div class="container" class="juego">
+        <div id="tablero" class="box"></div>
+        <div class="turno">
+            <p>Jugador, cliquee el boton</p>
+            <input type="button" value="Jugar Turno" onclick="rellenarOrdenado()">
+        </div>
+    </div>
+    <div class="pun">
+        <input type="button" value="PUNTUACIONES" class="puntos" onclick="puntuaciones()">
+    </div>
+    <div class="container">
+        <div class="row" id="jugs">
+            <div class="col-12" id="j1" display="none">
+                <h1>Jugador 1</h1>
+                <h5>Fichas:</h5><p id="f1"></p>
+                <h5>Total Puntos:</h5><p id="tp1"></p>
+            </div>
+            <div class="col-12" id="j2" display="none">
+                <h1>Jugador 2</h1>
+                <h5>Fichas:</h5><p id="f2"></p>
+                <h5>Total Puntos:</h5><p id="tp2"></p>
+            </div>
+            <div class="col-12" id="j3" display="none">
+                <h1>Jugador 3</h1>
+                <h5>Fichas:</h5><p id="f3"></p>
+                <h5>Total Puntos:</h5><p id="tp3"></p>
+            </div>
+            <div class="col-12" id="j4" display="none">
+                <h1>Jugador 4</h1>
+                <h5>Fichas:</h5><p id="f4"></p>
+                <h5>Total Puntos:</h5><p id="tp4"></p>
+            </div>
+            <div class="col-12" id="j5" display="none">
+                <h1>Jugador 5</h1>
+                <h5>Fichas:</h5><p id="f5"></p>
+                <h5>Total Puntos:</h5><p id="tp5"></p>
             </div>
         </div>
-    </header>
-    <header>
-        <div class="container">
-            <div class="row">
-                <div class="col-12" id="j1">
-                    <h1>Jugador 1</h1>
-                    <h5>Fichas:</h5><p id="f1">50</p>
-                    <h5>Total Puntos:</h5><p id="tp1"></p>
-                </div>
-                <div class="col-12" id="j2">
-                    <h1>Jugador 2</h1>
-                    <h5>Fichas:</h5><p id="f2">50</p>
-                    <h5>Total Puntos:</h5><p id="tp2"></p>
-                </div>
-                <div class="col-12" id="j3">
-                    <h1>Jugador 3</h1>
-                    <h5>Fichas:</h5><p id="f3">50</p>
-                    <h5>Total Puntos:</h5><p id="tp3"></p>
-                </div>
-                <div class="col-12" id="j4">
-                    <h1>Jugador 4</h1>
-                    <h5>Fichas:</h5><p id="f4">50</p>
-                    <h5>Total Puntos:</h5><p id="tp4"></p>
-                </div>
-                <div class="col-12" id="j5">
-                    <h1>Jugador 5</h1>
-                    <h5>Fichas:</h5><p id="f5">50</p>
-                    <h5>Total Puntos:</h5><p id="tp5"></p>
-                </div>
-            </div>
-        </div>
-    </header>
+    </div>
     <script src="js/js.js"></script>
 </body>
 </html>
