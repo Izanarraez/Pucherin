@@ -1,19 +1,24 @@
 html,body{
-    height:100%;
     padding:0;
     margin:0;
     width: 100%;
-    display: flex;
+    background-color:#ccc;
   }
   /**{
     box-sizing:border-box;
   }*/
+  .turno{
+    width: 20%;
+  }
   .box{
     position: relative;
     width:900px;
     height:650px;
-    margin-left: 20%;
     background-color:grey;
+  }
+
+  .juego{
+    display: flex;
   }
   
   .container{
@@ -32,6 +37,20 @@ html,body{
     justify-content: center;
     margin-left: 20%;
     width: 100%;
+  }
+  .pun{
+    display: flex;
+    justify-content: center;
+  }
+  .puntos{
+    margin-top: 3em;
+    width: 20%;
+    background-color: darkblue;
+    color: darkturquoise;
+    font-size: 30px;
+    font-weight: 700;
+    padding: 20px;
+    border-radius: 10px;
   }
   .col{
     display: flex;
@@ -61,7 +80,7 @@ html,body{
 
   #j1{
     display: none;
-    width: 50%;
+    width: 33%;
     flex-wrap: wrap;
   }
   #j1 h1{
@@ -74,12 +93,11 @@ html,body{
   }
   #j1 p{
     display: flex;
-    width: 50%;
   }
 
   #j2{
     display: none;
-    width: 50%;
+    width: 33%;
     flex-wrap: wrap;
   }
   #j2 h1{
@@ -98,7 +116,7 @@ html,body{
 
   #j3{
     display: none;
-    width: 50%;
+    width: 33%;
     flex-wrap: wrap;
   }
   #j3 h1{
