@@ -4,31 +4,26 @@ var jugadores = {
     1: {
         fichas: 0,
         dado: 0,
-        casillas: [],
         puntos: 0
     },
     2: {
         fichas: 0,
         dado: 0,
-        casillas: [],
         puntos: 0
     },
     3: {
         fichas: 0,
         dado: 0,
-        casillas: [],
         puntos: 0
     },
     4: {
         fichas: 0,
         dado: 0,
-        casillas: [],
         puntos: 0
     },
     5: {
         fichas: 0,
         dado: 0,
-        casillas: [],
         puntos: 0
     }
 }
@@ -138,7 +133,59 @@ function Tablero(){
     console.log("-Tablero-");
     console.log("---------");
     for(let i=2;i<=11;i++){
-        console.log(`\t${i}: ${casillas[i]}`);
+        if(i == 7){
+            console.log(`\t${i}: ${casillas[i]} (puchero)`);
+        }
+        else{
+            console.log(`\t${i}: ${casillas[i]}`);
+        }
+    }
+}
+
+function limpiar(jug){
+    for(let i=2;i<=11;i++){
+        switch (casillas[i]) {
+            case 2:
+                jug = 2;
+                casillas[2] = 0;
+                break;
+            case 3:
+                jug = 3;
+                casillas[3] = 0;
+                break;
+            case 4:
+                jug = 4;
+                casillas[4] = 0;
+                break;
+            case 5:
+                jug = 5;
+                casillas[5] = 0;
+                break;
+            case 6:
+                jug = 6;
+                casillas[6] = 0;
+                break;
+            case 7:
+                jug = 4;
+                casillas[7] = 0;
+                break;
+            case 8:
+                jug = 8;
+                casillas[8] = 0;
+                break;
+            case 9:
+                jug = 9;
+                casillas[9] = 0;
+                break;
+            case 10:
+                jug = 10;
+                casillas[10] = 0;
+                break;
+            case 11:
+                jug = 11;
+                casillas[11] = 0;
+                break;
+        }
     }
 }
 
@@ -151,98 +198,100 @@ function cerrar2(){
 }
 
 /************************************|rellena las casillas|****************************************************/
-function rellenar_casillas(dados){
+function rellenar_casillas(dados,num){
     var jug = 0;
     if(dados == 2 && casillas[2] >= 0 && casillas[2] <2){
         ++casillas[2];
     }
-    else if(casillas[2] == 2){
+    /*else if(casillas[2] == 2){
         jug = 2;
         casillas[2] = 0;
-    }
+    }*/
 
     else if(dados == 3 && casillas[3] >= 0 && casillas[3] <3){
         ++casillas[3];
     }
-    else if(casillas[3] == 3){
+    /*else if(casillas[3] == 3){
         jug = 3;
         casillas[3] = 0;
-    }
+    }*/
 
     else if(dados == 4 && casillas[4] >= 0 && casillas[4] <4){
         ++casillas[4];
     }
-    else if(casillas[4] == 4){
+    /*else if(casillas[4] == 4){
         jug = 4;
         casillas[4] = 0;
-    }
+    }*/
 
     else if(dados == 5 && casillas[5] >= 0 && casillas[5] <5){
         ++casillas[5];
     }
-    else if(casillas[5] == 5){
+    /*else if(casillas[5] == 5){
         jug = 5;
         casillas[5] = 0;
-    }
+    }*/
 
     else if(dados == 6 && casillas[6] >= 0 && casillas[6] <6){
         ++casillas[6];
     }
-    else if(casillas[6] == 6){
+    /*else if(casillas[6] == 6){
         jug = 6;
         casillas[6] = 0;
-    }
+    }*/
 
     else if(dados == 7 && casillas[7] >= 0 && casillas[7] <4){
         ++casillas[7];
     }
-    else if(casillas[7] == 4){
+    /*else if(casillas[7] == 4){
         jug = 4;
         casillas[7] = 0;
-    }
+    }*/
 
     else if(dados == 8 && casillas[8] >= 0 && casillas[8] <8){
         ++casillas[8];
     }
-    else if(casillas[8] == 8){
+    /*else if(casillas[8] == 8){
         jug = 8;
         casillas[8] = 0;
-    }
+    }*/
 
     else if(dados == 9 && casillas[9] >= 0 && casillas[9] <9){
         ++casillas[9];
     }
-    else if(casillas[9] == 9){
+    /*else if(casillas[9] == 9){
         jug = 9;
         casillas[9] = 0;
-    }
+    }*/
 
     else if(dados == 10 && casillas[10] >= 0 && casillas[10] <10){
         ++casillas[10];
     }
-    else if(casillas[10] == 10){
+    /*else if(casillas[10] == 10){
         jug = 10;
         casillas[10] = 0;
-    }
+    }*/
 
     else if(dados == 11 && casillas[11] >= 0 && casillas[11] <11){
         ++casillas[11];
     }
-    else if(casillas[11] == 11){
+    /*else if(casillas[11] == 11){
         jug = 11;
         casillas[11] = 0;
-    }
+    }*/
 
     else{
         jug = casillas[7];
         casillas[7] = 0;
     }
+    limpiar(jug);
     return jug;
 }
 
 /************************************|fichas vacias|************************************************************/
 function sin_fichas(jugador,dados){
     let com = 0;
+    let mas = 0;
 
     for(let i=1;i<=jugador;i++){
         if(jugadores[i].fichas == 0){
@@ -253,66 +302,115 @@ function sin_fichas(jugador,dados){
         }
     }
 
+    for(let i=2;i<=casillas;i++){
+        if(casillas[i] == 0){
+            ++mas;
+        }
+    }
+
     for(let i=1;i<=jugador;i++){
         if(com == jugador){
             for(let j=2;j<=11;i++){
                 if(casillas[j] != 0){
                     if(dados == 12){
                         for(let k=0;k<=11;k++){
-                            
+                            jugadores[i].puntos += casillas[j];
+                            casillas[j] = 0;
                         }
-                        jugadores[i].puntos += casillas[j];
+                        cerrar2();
                     }
                     else{
                         jugadores[i].puntos += casillas[j];
                         casillas[j] = 0;
-                    }
-                    
-                    
+                    } 
                 }
             }
         }
     }
+
+    if(mas == 10){
+        cerrar2();
+    }
 }
 
 /************************************|Jugar al juego|***********************************************************/
-function jugar(turno){
-    if(turno == 1){
-        let a = dados();
-        jugadores[1].puntos += rellenar_casillas(a);
-        jugadores[1].dado = a;
+function jugar(dados){
+    if(tur == 1){
+        sum_puntos(rellenar_casillas(dados,1));
+        jugadores[1].dado = dados;
+        jugadores[1].fichas -= 1;
     }
-    else if(turno == 2){
-        let a = dados();
-        jugadores[2].puntos += rellenar_casillas(a);
-        jugadores[2].dado = a;
+    else if(tur == 2){
+        sum_puntos(rellenar_casillas(dados,2));
+        jugadores[2].dado = dados;
+        jugadores[2].fichas -= 1;
     }
-    else if(turno == 3){
-        let a = rellenar_casillas(dados());
-        jugadores[3].puntos += a;
+    else if(tur == 3){
+        rellenar_casillas(dados,3);
+        jugadores[3].dado = dados;
+        jugadores[3].fichas -= 1;
     }
-    else if(turno == 4){
-        let a = rellenar_casillas(dados());
-        jugadores[4].puntos += a;
+    else if(tur == 4){
+        rellenar_casillas(dados,4);
+        jugadores[4].dado = dados;
+        jugadores[4].fichas -= 1;
     }
-    else{
-        let a = rellenar_casillas(dados());
-        jugadores[5].puntos += a;
+    else if(tur == 5){
+        rellenar_casillas(dados,5);
+        jugadores[5].dado = dados;
+        jugadores[5].fichas -= 1;
     }
 }
 
+/*function sum_puntos(jug){
+    switch (tur) {
+        case 1: jugadores[1].puntos += jug; break;
+        case 2: jugadores[2].puntos += jug; break;
+        case 3: jugadores[3].puntos += jug; break;
+        case 4: jugadores[4].puntos += jug; break;
+        case 5: jugadores[5].puntos += jug; break;  
+    }
+}*/
+
+
+function mostrar_turnos(){
+    switch (tur) {
+        case 1:
+            console.log("**************");
+            console.log("Turno jugador1");
+            console.log("**************");
+            break;
+        case 2:
+            console.log("**************");
+            console.log("Turno jugador2");
+            console.log("**************");
+            break;
+        case 3:
+            console.log("**************");
+            console.log("Turno jugador3");
+            console.log("**************");
+            break;
+        case 4:
+            console.log("**************");
+            console.log("Turno jugador4");
+            console.log("**************");
+            break;
+        case 5:
+            console.log("**************");
+            console.log("Turno jugador5");
+            console.log("**************");
+            break;
+    }
+}
 /************************************|Casos de eleccion de turnos|**********************************************/
 var mov = 0;
 var tur = 0;
 
 function caso1(){
-        console.log("**************");
-        console.log("Turno jugador1");
-        console.log("**************");
-        tur = 1;
+    tur = 1;
 }
 
-function caso2(empezar){
+/*function caso2(empezar){
     if(empezar == 1){
         if(mov == 0){
             console.log("**************");
@@ -345,7 +443,25 @@ function caso2(empezar){
             tur = 1;
         }
     }
+  }*/
+
+  function caso2(empezar){
+    switch (empezar) {
+        case 1:
+            switch (mov) {
+                case 0: mov = 1; tur = 1; break;
+                case 1: mov = 0; tur = 2; break;
+            }
+        break;
+        case 2:
+            switch (mov) {
+                case 0: mov = 1; tur = 2; break;
+                case 1: mov = 0; tur = 1; break;
+            }
+        break;
+    }
   }
+
   function caso3(empezar){
     if(empezar == 1){
         if(mov == 0){
@@ -725,10 +841,10 @@ function caso2(empezar){
             tur = 4;
         }
     }
+    return tur;
   }
   
   /******************************|elegir casos dependiendo de los jugadores|*************************************/
-  var punCor = 0;
   function turno(jugadores,empezar){
     switch (jugadores) {
       case 1: caso1(empezar); break;
@@ -740,29 +856,42 @@ function caso2(empezar){
     return tur;
   }
 
+  /*******************************************|decidir si querer jugar de nuevo|****************************************************/
+  function decidir(decision){
+    if(decision == "no"){
+        cerrar1();
+    }
+  }
+
 /*******************************************|motor de juego|****************************************************/
 let a = true;
 let b = true;
 do{
     let participantes = parseInt(prompt("Ingrea los participantes: "));
-    Tablero();
+    //Tablero();
 
     const c = empezar(participantes);
     reparto_fichas(participantes,c);
+
     do{
+        turno(participantes,c);
+        Tablero();
+        mostrar_numero_jugadores(participantes);
+
         let sip = prompt("Siguente jugador: Pulse enter\n");
         if(sip == ""){
-            for(let i=0;i<12;i++){ 
-                jugar(turno(participantes,c))+"\n";
-                Tablero()+"\n";
-                mostrar_numero_jugadores(participantes)+"\n";
-            }
+            //for(let i=0;i<12;i++){
+            mostrar_turnos();
+            jugar(dados());
+                //sin_fichas(participantes,a);
+            //}
         }
         if(casillas[2] == 2){
             cerrar2();
         }
     }while(b == true);
-    cerrar1();
+    let decision = prompt("Quieres volver a jugar: si o no").toLowerCase();
+    decidir(decision);
 }while(a == true);
 
 
