@@ -112,6 +112,15 @@ var mainJuego=document.getElementById("mainJuego");
 var winer=document.getElementById("winer");
 
 
+//jugadores
+var j1=document.getElementById("j1");
+var j2=document.getElementById("j2");
+var j3=document.getElementById("j3");
+var j4=document.getElementById("j4");
+var j5=document.getElementById("j5");
+
+
+
 var jugadores = {
     1: {
         fichas: 0,
@@ -157,6 +166,7 @@ var canPuch=0;
 
 let participantes = parseInt(prompt("Cuantos jugadores van a ser: Maximo 5"));
 reparto_fichas()
+ocultJugs()
 var turnoJugador=document.getElementById("turno");
 
 function rellenarOrdenado(){
@@ -168,6 +178,61 @@ function rellenarOrdenado(){
         case 5: pl5(); break;
     }
 }
+function ocultJugs(){
+    switch(participantes){
+        case 1: 
+            j1.style.display="block";
+            j2.style.display="none";
+            j3.style.display="none";
+            j4.style.display="none";
+            j5.style.display="none";
+            j1.style.width="100%";
+        break;
+        case 2: 
+            j1.style.display="block";
+            j2.style.display="block";
+            j3.style.display="none";
+            j4.style.display="none";
+            j5.style.display="none";
+            j1.style.width="50%";
+            j2.style.width="50%";
+        break;
+        case 3: 
+            j1.style.display="block";
+            j2.style.display="block";
+            j3.style.display="block";
+            j4.style.display="none";
+            j5.style.display="none";
+            j1.style.width="33%";
+            j2.style.width="33%";
+            j3.style.width="33%";
+        break;
+        case 4: 
+            j1.style.display="block";
+            j2.style.display="block";
+            j3.style.display="block";
+            j4.style.display="block";
+            j5.style.display="none";
+            j1.style.width="25%";
+            j2.style.width="25%";
+            j3.style.width="25%";
+            j4.style.width="25%";
+        break;
+        case 5: 
+            j1.style.display="block";
+            j2.style.display="block";
+            j3.style.display="block";
+            j4.style.display="block";
+            j5.style.display="block";
+            j1.style.width="20%";
+            j2.style.width="20%";
+            j3.style.width="20%";
+            j4.style.width="20%";
+            j5.style.width="20%";
+        break;
+    }
+}
+
 //tipo de ORDEN segun NUMERO DE JUGADORES
 function pl1(){
     var aux;
@@ -471,12 +536,6 @@ function reparto_fichas(){
     } 
 }
 
-//jugadores
-var j1=document.getElementById("j1");
-var j2=document.getElementById("j2");
-var j3=document.getElementById("j3");
-var j4=document.getElementById("j4");
-var j5=document.getElementById("j5");
 
 //fichas
 var f1=document.getElementById("f1");
@@ -673,8 +732,3 @@ function refrescarVictoria(){
     mainJuego.style.display="block";
     cartelVictoria.style.display="none";
 }
-
-
-
-
-

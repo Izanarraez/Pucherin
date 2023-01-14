@@ -13,43 +13,50 @@
             <div id="tablero" class="box"></div>
             <div class="turno">
                 <p id="turno">Jugadores, cliquee el boton fuerte para empezar Jugador 1</p>
-                <input type="button" value="Jugar Turno" onclick="rellenarOrdenado()">
+                <a href="#scroll"><input type="button" value="Jugar Turno" onclick="rellenarOrdenado()||puntuaciones(event)" class="butTurno"></a>
             </div>
         </div>
-        <div class="pun">
-            <input type="button" value="PUNTUACIONES" class="puntos" onclick="puntuaciones()">
-        </div>
-        <div class="container">
-            <div class="row" id="jugs">
-                <div class="col-12" id="j1" display="none">
-                    <h1>Jugador 1</h1>
-                    <h5>Fichas: </h5><p id="f1"></p>
-                    <h5>Total Puntos: </h5><p id="tp1"></p>
-                    <h5>Movimientos: </h5><p id="move1"></p>
+        <div class="container-fluid" id="scroll">
+            <div class="row justify-content-center" id="jugs">
+                <div class="col-12" id="j1">
+                    <div>
+                        <h1>Jugador 1</h1>
+                        <h5>Fichas: </h5><p id="f1"></p>
+                        <h5>Total Puntos: </h5><p id="tp1"></p>
+                        <h5>Movimientos: </h5><p id="move1"></p>
+                    </div>
                 </div>
-                <div class="col-12" id="j2" display="none">
-                    <h1>Jugador 2</h1>
-                    <h5>Fichas:</h5><p id="f2"></p>
-                    <h5>Total Puntos:</h5><p id="tp2"></p>
-                    <h5>Movimientos: </h5><p id="move2"></p>
+                <div class="col-12" id="j2">
+                    <div>
+                        <h1>Jugador 2</h1>
+                        <h5>Fichas: </h5><p id="f2"></p>
+                        <h5>Total Puntos:</h5><p id="tp2"></p>
+                        <h5>Movimientos: </h5><p id="move2"></p>
+                    </div>
                 </div>
-                <div class="col-12" id="j3" display="none">
-                    <h1>Jugador 3</h1>
-                    <h5>Fichas:</h5><p id="f3"></p>
-                    <h5>Total Puntos:</h5><p id="tp3"></p>
-                    <h5>Movimientos: </h5><p id="move3"></p>
+                <div class="col-12" id="j3">
+                    <div>
+                        <h1>Jugador 3</h1>
+                        <h5>Fichas:</h5><p id="f3"></p>
+                        <h5>Total Puntos:</h5><p id="tp3"></p>
+                        <h5>Movimientos: </h5><p id="move3"></p>
+                    </div>
                 </div>
-                <div class="col-12" id="j4" display="none">
-                    <h1>Jugador 4</h1>
-                    <h5>Fichas:</h5><p id="f4"></p>
-                    <h5>Total Puntos:</h5><p id="tp4"></p>
-                    <h5>Movimientos: </h5><p id="move4"></p>
+                <div class="col-12" id="j4">
+                    <div>
+                        <h1>Jugador 4</h1>
+                        <h5>Fichas:</h5><p id="f4"></p>
+                        <h5>Total Puntos:</h5><p id="tp4"></p>
+                        <h5>Movimientos: </h5><p id="move4"></p>
+                    </div>
                 </div>
-                <div class="col-12" id="j5" display="none">
-                    <h1>Jugador 5</h1>
-                    <h5>Fichas:</h5><p id="f5"></p>
-                    <h5>Total Puntos:</h5><p id="tp5"></p>
-                    <h5>Movimientos: </h5><p id="move5"></p>
+                <div class="col-12" id="j5">
+                    <div>
+                        <h1>Jugador 5</h1>
+                        <h5>Fichas:</h5><p id="f5"></p>
+                        <h5>Total Puntos:</h5><p id="tp5"></p>
+                        <h5>Movimientos: </h5><p id="move5"></p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -58,7 +65,7 @@
     <div id="CatelGanador">
         <h1 id="winer">Ganador</h1>
         <p>Click abajo para empezar de nuevo el juego</p>
-        <a href="javascript:location.reload()"><input type="button" value="INICIO" onclick="refrescarVictoria();"></a>
+        <a href="javascript:location.reload()"><input type="button" value="INICIO" onclick="refrescarVictoria();" class="inicio"></a>
     </div>
     <script src="js/js.js"></script>
 </body>
