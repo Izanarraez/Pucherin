@@ -11,4 +11,7 @@ no tienen fichas y sumar las que queden en el tablero con los dados correspondie
 Tras terminar con el segundo bucle te muestra los jugadores con con todos sus puntos y da paso a ver el ganador.
 Y para acabar luego hay otro prompt que te pregunta si quieres jugar de nuevo, si le dices que si vuelves a jugar y si es un no, te saca del segundo bucle.
 
+MODO GRAFICO
+------------
+Direccion pucherin grafico con github pages:
 https://izanarraez.github.io/Pucherin/
