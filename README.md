@@ -1,5 +1,8 @@
 # Pucherin
- 
+COMO JUGAR
+------------
+
+
 MODO TEXTO
 ------------
 El modo texto es el fichero texto.js y funciona con nodejs. Para escribir en la terminal utiliza prompt-sync.
