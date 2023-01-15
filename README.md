@@ -10,3 +10,5 @@ casillas y en el caso de que el numero este lleno se lo suma como puntos al juga
 no tienen fichas y sumar las que queden en el tablero con los dados correspondientes y si  todas las casillas son 0 te saca del primer bucle.
 Tras terminar con el segundo bucle te muestra los jugadores con con todos sus puntos y da paso a ver el ganador.
 Y para acabar luego hay otro prompt que te pregunta si quieres jugar de nuevo, si le dices que si vuelves a jugar y si es un no, te saca del segundo bucle.
+
+https://izanarraez.github.io/Pucherin/
