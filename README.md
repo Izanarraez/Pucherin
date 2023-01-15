@@ -1,4 +1,4 @@
-# Pucherin
+# Pucherin de Izan Arraez y Pedro Olmos
 COMO JUGAR
 ------------
 Para jugar al pucherin se necesitan de 1 a 5 jugadores. El juego consta en que cada jugador tiene un turno en el que lanza dos dados a los que su resultado se suman. La 
