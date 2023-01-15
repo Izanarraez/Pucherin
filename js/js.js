@@ -105,8 +105,6 @@ function pintarPuchero(canvas,num){
 
 //VARIOABLES AUXILIARES
 var orden=1;
-jugVac=0;   
-compyeno=0;
 var cartelVictoria=document.getElementById("CatelGanador");
 var mainJuego=document.getElementById("mainJuego");
 var winer=document.getElementById("winer");
@@ -239,29 +237,23 @@ function pl1(){
     switch(orden){
         case 1:
             aux=1;
-            if(jugadores[1].fichas>0){
-                rellenarFinal(aux);
-                jugadores[1].fichas=jugadores[1].fichas-1;
-                turnoJugador.innerHTML="Tu turno, jugador solitario";
-            }else{
-                comprVictoria(aux);
-            }
+            add(aux);
+            turnoJugador.innerHTML="Tu turno, jugador solitario";
         break;
     }
 }
 function pl2(){
     var aux;
-    compyeno=2;
     switch(orden){
         case 1:
             aux=1;
-            add(aux,compyeno);
+            add(aux);
             orden+=1;
             turnoJugador.innerHTML="Turno del jugador 2";
         break;
         case 2:
             aux=2;
-            add(aux,compyeno);
+            add(aux);
             orden=1;
             turnoJugador.innerHTML="Turno del jugador 1";
         break;
@@ -269,23 +261,22 @@ function pl2(){
 }
 function pl3(){
     var aux;
-    compyeno=3;
     switch(orden){
         case 1:
             aux=1;
-            add(aux,compyeno);
+            add(aux);
             orden+=1;
             turnoJugador.innerHTML="Turno del jugador 2";
         break;
         case 2:
             aux=2;
-            add(aux,compyeno);
+            add(aux);
             orden+=1;
             turnoJugador.innerHTML="Turno del jugador 3";
         break;
         case 3:
             aux=3;
-            add(aux,compyeno);
+            add(aux);
             orden=1;
             turnoJugador.innerHTML="Turno del jugador 1";
         break;
@@ -293,29 +284,28 @@ function pl3(){
 }
 function pl4(){
     var aux;
-    compyeno=4;
     switch(orden){
         case 1:
             aux=1;
-            add(aux,compyeno);
+            add(aux);
             orden+=1;
             turnoJugador.innerHTML="Turno del jugador 2";
         break;
         case 2:
             aux=2;
-            add(aux,compyeno);
+            add(aux);
             orden+=1;
             turnoJugador.innerHTML="Turno del jugador 3";
         break;
         case 3:
             aux=3;
-            add(aux,compyeno);
+            add(aux);
             orden+=1;
             turnoJugador.innerHTML="Turno del jugador 4";
         break;
         case 4:
             aux=4;
-            add(aux,compyeno);
+            add(aux);
             orden=1;
             turnoJugador.innerHTML="Turno del jugador 1";
         break;
@@ -323,50 +313,135 @@ function pl4(){
 }
 function pl5(){
     var aux;
-    compyeno=5;
     switch(orden){
         case 1:
             aux=1;
-            add(aux,compyeno);
+            add(aux);
             orden+=1;
             turnoJugador.innerHTML="Turno del jugador 2";
         break;
         case 2:
             aux=2;
-            add(aux,compyeno);
+            add(aux);
             orden+=1;
             turnoJugador.innerHTML="Turno del jugador 3";
         break;
         case 3:
             aux=3;
-            add(aux,compyeno);
+            add(aux);
             orden+=1;
             turnoJugador.innerHTML="Turno del jugador 4";
         break;
         case 4:
             aux=4;
-            add(aux,compyeno);
+            add(aux);
             orden+=1;
             turnoJugador.innerHTML="Turno del jugador 5";
         break;
         case 5:
             aux=5;
-            add(aux,compyeno);
+            add(aux);
             orden=1;
             turnoJugador.innerHTML="Turno del jugador 1";
         break;
     }
 }
-function add(aux,comp){
-    if((jugadores[aux].fichas-1)>0){
+function add(aux){
+    if(jugadores[aux].fichas<=0){
+        jugadores[aux].fichas=0;
+        checkCero(aux);
+    }else{
         rellenarFinal(aux);
         jugadores[aux].fichas=jugadores[aux].fichas-1;
-    }else{
-        jugadores[aux].fichas=0;
-        jugVac+=1;
-        if(jugVac==comp){
-            comprVictoria(comp);
-        }
+    }
+}
+function checkCero(aux){
+    var num=dados();
+    switch(num){
+        case 2:
+            can=can0;
+            can0=0;
+            checkCeroAux(num,aux,0,can);
+            jugadores[aux].casis.push("-C2-");
+        break;
+        case 3:
+            can=can1;
+            can1=0;
+            checkCeroAux(num,aux,1,can);
+            jugadores[aux].casis.push("-C3-");
+        break;
+        case 4:
+            can=can2;
+            can2=0;
+            checkCeroAux(num,aux,2,can);
+            jugadores[aux].casis.push("-C4-");
+        break;
+        case 5:
+            can=can3;
+            can3=0;
+            checkCeroAux(num,aux,3,can);
+            jugadores[aux].casis.push("-C5-");
+        break;
+        case 6:
+            can=can4;
+            can4=0;
+            checkCeroAux(num,aux,4,can);
+            jugadores[aux].casis.push("-C6-");
+        break;
+        case 7:
+            jugadores[aux].puntos+=canPuch
+            canPuch=0;
+            pintarPuchero(puchero,canPuch);
+            if(todosCero()==true){
+                comprVictoria();
+            }
+            jugadores[aux].casis.push("-Puchero-");
+        break;
+        case 8:
+            can=can5;
+            can5=0;
+            checkCeroAux(num,aux,5,can);
+            jugadores[aux].casis.push("-C8-");
+        break;
+        case 9:
+            can=can6;
+            can6=0;
+            checkCeroAux(num,aux,6,can);
+            jugadores[aux].casis.push("-C9-");
+        break;
+        case 10:
+            can=can7;
+            can7=0;
+            checkCeroAux(num,aux,7,can);
+            jugadores[aux].casis.push("-C10-");
+        break;
+        case 11:
+            can=can8;
+            can8=0;
+            checkCeroAux(num,aux,8,can);
+            jugadores[aux].casis.push("-C11-");
+        break;
+        case 12:
+            alert("fast win")
+            winer.innerHTML="GANADOR JUGADOR "+aux;
+            confirVictoria();
+        break;
+    }
+}
+function checkCeroAux(num,aux,ncan,can){
+    jugadores[aux].puntos+=can;
+    pintarCasilla(canvases[ncan],num,0);
+    todosCero()
+}
+function todosCero(){
+    var a=0;
+    for(var i=1;i<=participantes;i++){
+        if(jugadores[i].fichas==0){
+            a+=1;
+        }   
+    }
+    if(a==participantes && can0==0 && can1==0 && can2==0 && can3==0 && can4==0 && can5==0 && can6==0 && can7==0 && can8==0 && canPuch==0){
+        comprVictoria()
     }
 }
 function rellenarFinal(aux){
@@ -378,7 +453,7 @@ function rellenarFinal(aux){
                 can0=0;
                 jugadores[aux].puntos=jugadores[aux].puntos+num;
                 pintarCasilla(canvases[0],num,can0);
-                jugadores[aux].casis.push("-C2-")
+                jugadores[aux].casis.push("-C2-");
             }else{
                 pintarCasilla(canvases[0],num,can0);
                 jugadores[aux].casis.push("-C2-");
@@ -493,15 +568,10 @@ function rellenarFinal(aux){
             }
         break;
         case 12:
-            if(jugadores[aux].fichas==0){
-                winer.innerHTML="GANADOR JUGADOR "+aux;
-                jugadores[aux].casis.push("-BoteGordo-");
-            }else{
-                jugadores[aux].puntos=jugadores[aux].puntos+canPuch;
-                canPuch=0;
-                pintarPuchero(puchero,canPuch);
-                jugadores[aux].casis.push("-Bote-");
-            }
+            jugadores[aux].puntos=jugadores[aux].puntos+canPuch;
+            canPuch=0;
+            pintarPuchero(puchero,canPuch);
+            jugadores[aux].casis.push("-Bote-");
         break;
     }
 }
@@ -521,10 +591,10 @@ function reparto_fichas(){
             jugadores[3].fichas = 16;
         break;
         case 4:
-            jugadores[1].fichas = 13;
-            jugadores[2].fichas = 13;
-            jugadores[3].fichas = 12;
-            jugadores[4].fichas = 12;
+            jugadores[1].fichas = 3;
+            jugadores[2].fichas = 3;
+            jugadores[3].fichas = 2;
+            jugadores[4].fichas = 2;
         break;
         case 5:
             jugadores[1].fichas = 10;
@@ -562,88 +632,62 @@ var move5=document.getElementById("move5");
 function puntuaciones(e){
     switch(participantes){
         case 1:
-            f1.innerHTML=jugadores[1].fichas
-            tp1.innerHTML=jugadores[1].puntos
-            move1.innerHTML=jugadores[1].casis
-            j1.style.display="block";
+            displayp1();
         break;
         case 2:
-            f1.innerHTML=jugadores[1].fichas
-            tp1.innerHTML=jugadores[1].puntos
-            move1.innerHTML=jugadores[1].casis
-            j1.style.display="block";
-
-            f2.innerHTML=jugadores[2].fichas
-            tp2.innerHTML=jugadores[2].puntos
-            move2.innerHTML=jugadores[2].casis
-            j2.style.display="block";
+            displayp1();
+            displayp2();
         break;
         case 3:
-            f1.innerHTML=jugadores[1].fichas
-            tp1.innerHTML=jugadores[1].puntos
-            move1.innerHTML=jugadores[1].casis
-            j1.style.display="block";
-
-            f2.innerHTML=jugadores[2].fichas
-            tp2.innerHTML=jugadores[2].puntos
-            move2.innerHTML=jugadores[2].casis
-            j2.style.display="block";
-
-            f3.innerHTML=jugadores[3].fichas
-            tp3.innerHTML=jugadores[3].puntos
-            move3.innerHTML=jugadores[3].casis
-            j3.style.display="block";
+            displayp1();
+            displayp2();
+            displayp3();
         break;
         case 4:
-            f1.innerHTML=jugadores[1].fichas
-            tp1.innerHTML=jugadores[1].puntos
-            move1.innerHTML=jugadores[1].casis
-            j1.style.display="block";
-
-            f2.innerHTML=jugadores[2].fichas
-            tp2.innerHTML=jugadores[2].puntos
-            move2.innerHTML=jugadores[2].casis
-            j2.style.display="block";
-
-            f3.innerHTML=jugadores[3].fichas
-            tp3.innerHTML=jugadores[3].puntos
-            move3.innerHTML=jugadores[3].casis
-            j3.style.display="block";
-
-            f4.innerHTML=jugadores[4].fichas
-            tp4.innerHTML=jugadores[4].puntos
-            move4.innerHTML=jugadores[4].casis
-            j4.style.display="block";
+            displayp1();
+            displayp2();
+            displayp3();
+            displayp4();
         break;
         case 5:
-            f1.innerHTML=jugadores[1].fichas
-            tp1.innerHTML=jugadores[1].puntos
-            move1.innerHTML=jugadores[1].casis
-            j1.style.display="block";
-
-            f2.innerHTML=jugadores[2].fichas
-            tp2.innerHTML=jugadores[2].puntos
-            move2.innerHTML=jugadores[2].casis
-            j2.style.display="block";
-
-            f3.innerHTML=jugadores[3].fichas
-            tp3.innerHTML=jugadores[3].puntos
-            move3.innerHTML=jugadores[3].casis
-            j3.style.display="block";
-
-            f4.innerHTML=jugadores[4].fichas
-            tp4.innerHTML=jugadores[4].puntos
-            move4.innerHTML=jugadores[4].casis
-            j4.style.display="block";
-
-            f5.innerHTML=jugadores[5].fichas
-            tp5.innerHTML=jugadores[5].puntos
-            move5.innerHTML=jugadores[5].casis
-            j5.style.display="block";
+            displayp1();
+            displayp2();
+            displayp3();
+            displayp4();
+            displayp5();
         break;
     }
 }
-
+function displayp1(){
+    f1.innerHTML=jugadores[1].fichas
+    tp1.innerHTML=jugadores[1].puntos
+    move1.innerHTML=jugadores[1].casis
+    j1.style.display="block";
+}
+function displayp2(){
+    f2.innerHTML=jugadores[2].fichas
+    tp2.innerHTML=jugadores[2].puntos
+    move2.innerHTML=jugadores[2].casis
+    j2.style.display="block";
+}
+function displayp3(){
+    f3.innerHTML=jugadores[3].fichas
+    tp3.innerHTML=jugadores[3].puntos
+    move3.innerHTML=jugadores[3].casis
+    j3.style.display="block";
+}
+function displayp4(){
+    f4.innerHTML=jugadores[4].fichas
+    tp4.innerHTML=jugadores[4].puntos
+    move4.innerHTML=jugadores[4].casis
+    j4.style.display="block";
+}
+function displayp5(){
+    f5.innerHTML=jugadores[5].fichas
+    tp5.innerHTML=jugadores[5].puntos
+    move5.innerHTML=jugadores[5].casis
+    j5.style.display="block";
+}
 //dados 
 function dados(){
     let dado1 = Math.ceil(Math.random()*(6-0)+0);
@@ -651,10 +695,10 @@ function dados(){
     
     let suma = dado1+dado2;
     return suma;
-}
+} 
  
-function comprVictoria(comp){
-    switch(comp){
+function comprVictoria(){
+    switch(participantes){
         case 1:
             winer.innerHTML="GANADOR JUGADOR SOLITARIO";
             confirVictoria();
@@ -663,6 +707,9 @@ function comprVictoria(comp){
             if(jugadores[1].puntos>jugadores[2].puntos){
                 winer.innerHTML="GANADOR JUGADOR 1";
                 confirVictoria();
+            }else if(jugadores[1].puntos==jugadores[2].puntos){
+                winer.innerHTML="EMPATE BROTHERS";
+                confirVictoria();
             }
         break;
         case 3:
@@ -670,7 +717,7 @@ function comprVictoria(comp){
                 winer.innerHTML="GANADOR JUGADOR 1";
                 confirVictoria();
             }else{
-                if(jugadores[2].puntos>jugadores[3].puntos){
+                if(jugadores[2].puntos>=jugadores[3].puntos){
                     winer.innerHTML="GANADOR JUGADOR 2";
                     confirVictoria();
                 }else{
@@ -688,7 +735,7 @@ function comprVictoria(comp){
                     winer.innerHTML="GANADOR JUGADOR 2";
                     confirVictoria();
                 }else{
-                    if(jugadores[3].puntos>jugadores[4].puntos){
+                    if(jugadores[3].puntos>=jugadores[4].puntos){
                         winer.innerHTML="GANADOR JUGADOR 3";
                         confirVictoria();
                     }else{
@@ -711,7 +758,7 @@ function comprVictoria(comp){
                         winer.innerHTML="GANADOR JUGADOR 3";
                         confirVictoria();
                     }else{
-                        if(jugadores[4].puntos>jugadores[5].puntos){
+                        if(jugadores[4].puntos>=jugadores[5].puntos){
                             winer.innerHTML="GANADOR JUGADOR 4";
                             confirVictoria();
                         }else{
