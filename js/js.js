@@ -591,10 +591,10 @@ function reparto_fichas(){
             jugadores[3].fichas = 16;
         break;
         case 4:
-            jugadores[1].fichas = 3;
-            jugadores[2].fichas = 3;
-            jugadores[3].fichas = 2;
-            jugadores[4].fichas = 2;
+            jugadores[1].fichas = 13;
+            jugadores[2].fichas = 13;
+            jugadores[3].fichas = 12;
+            jugadores[4].fichas = 12;
         break;
         case 5:
             jugadores[1].fichas = 10;
